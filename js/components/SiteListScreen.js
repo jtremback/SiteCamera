@@ -1,0 +1,81 @@
+'use strict'
+import {
+  StyleSheet,
+  View,
+  TouchableHighlight,
+  ListView,
+  Text,
+  PropTypes,
+  default as React,
+} from 'react-native'
+
+const styles = StyleSheet.create({
+  thumb: {
+    width: 80,
+    height: 80,
+    marginRight: 10
+  },
+  textContainer: {
+    flex: 1
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#dddddd'
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    padding: 20
+  },
+  title: {
+    fontSize: 17
+  }
+})
+
+export default React.createClass({
+  displayName: 'SiteListScreen',
+  propTypes: {
+    rowPressed: PropTypes.function,
+    listData: PropTypes.array
+  },
+
+  getInitialState () {
+    return {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (old, next) => old.guid !== next.guid
+      })
+    }
+  },
+
+  componentWillReceiveProps (nextProps) {
+    this.setState(state => {
+      return { dataSource: state.dataSource.cloneWithRows(nextProps.listData) }
+    })
+  },
+
+  renderRow (row) {
+    return (
+      <TouchableHighlight
+        onPress={() => this.props.rowPressed(row)}
+        underlayColor='#dddddd'
+      >
+        <View>
+          <View style={styles.rowContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.title}
+                numberOfLines={1}>{row.title}</Text>
+            </View>
+          </View>
+          <View style={styles.separator}/>
+        </View>
+      </TouchableHighlight>
+    )
+  },
+
+  render () {
+    return (
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderRow}/>
+    )
+  }
+})
