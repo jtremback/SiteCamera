@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
-    "babel": "babel js -w --stage=1 --out-dir built"
+    "babel": "babel js -w --stage=1 --out-dir built",
+    "ipreplace": "rn-ip-replace"
   },
   "eslintConfig": {
     "plugins": [
@@ -56,10 +57,16 @@
     "react-native": "^0.4.4",
     "react-native-camera": "^0.2.5"
   },
+  "rnIpReplace": {
+    "files": [
+      "./iOS/AppDelegate.m"
+    ]
+  },
   "devDependencies": {
     "babel": "^5.4.7",
     "babel-eslint": "^3.1.5",
     "eslint": "^0.21.2",
-    "eslint-plugin-react": "^2.3.0"
+    "eslint-plugin-react": "^2.3.0",
+    "rn-ip-replace": "^1.4.0"
   }
 }
