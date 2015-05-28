@@ -1,4 +1,4 @@
-import Nuclear from 'nuclear-js'
+var Nuclear = require('nuclear-js')
 const toImmutable = Nuclear.toImmutable
 
 module.exports = new Nuclear.Store({

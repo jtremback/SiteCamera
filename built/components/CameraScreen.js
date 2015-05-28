@@ -1,23 +1,19 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
+var React = require('react-native');
+var StyleSheet = React.StyleSheet;
+var Text = React.Text;
+var View = React.View;
+var TouchableHighlight = React.TouchableHighlight;
+var Image = React.Image;
+var PropTypes = React.PropTypes;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _reactNative = require('react-native');
-
-var _reactNative2 = _interopRequireDefault(_reactNative);
-
-var _reactNativeCamera = require('react-native-camera');
-
-var _reactNativeCamera2 = _interopRequireDefault(_reactNativeCamera);
+var Camera = require('react-native-camera');
 
 var brand_color = '#FCCC32';
 var black = '#222222';
 
-var styles = _reactNative.StyleSheet.create({
+var styles = StyleSheet.create({
   container: {
     flex: 1
   },
@@ -77,11 +73,11 @@ var styles = _reactNative.StyleSheet.create({
     fontWeight: 'bold' }
 });
 
-exports['default'] = _reactNative2['default'].createClass({
+module.exports = React.createClass({
   displayName: 'CameraScreen',
   propTypes: {
-    tookPicture: _reactNative.PropTypes['function'],
-    cameraType: _reactNative.PropTypes.string },
+    tookPicture: PropTypes['function'],
+    cameraType: PropTypes.string },
 
   getDefaultProps: function getDefaultProps() {
     return {
@@ -103,35 +99,35 @@ exports['default'] = _reactNative2['default'].createClass({
       }
     }
 
-    return _reactNative2['default'].createElement(
-      _reactNative.View,
+    return React.createElement(
+      View,
       { style: styles.container },
-      _reactNative2['default'].createElement(_reactNative.View, { style: styles.statusBar }),
-      _reactNative2['default'].createElement(
-        _reactNativeCamera2['default'],
+      React.createElement(View, { style: styles.statusBar }),
+      React.createElement(
+        Camera,
         {
           ref: 'cam',
           style: styles.camera,
           captureTarget: 'disk',
           type: this.props.cameraType
         },
-        _reactNative2['default'].createElement(
-          _reactNative.View,
+        React.createElement(
+          View,
           { style: styles.cameraButtonContainer },
-          _reactNative2['default'].createElement(
-            _reactNative.TouchableHighlight,
+          React.createElement(
+            TouchableHighlight,
             { style: styles.cameraButton,
               onPress: this.takePicture },
-            _reactNative2['default'].createElement(_reactNative.Image, {
+            React.createElement(Image, {
               source: require('image!camera_icon'),
               style: styles.cameraIcon,
               resizeMode: 'contain' })
           ),
-          _reactNative2['default'].createElement(
-            _reactNative.View,
+          React.createElement(
+            View,
             { style: styles.picCounter },
-            _reactNative2['default'].createElement(
-              _reactNative.Text,
+            React.createElement(
+              Text,
               { style: styles.picCounterText },
               jankyMinWidth(10)
             )
@@ -140,4 +136,3 @@ exports['default'] = _reactNative2['default'].createClass({
       )
     );
   } });
-module.exports = exports['default'];

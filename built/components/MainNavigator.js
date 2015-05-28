@@ -1,68 +1,59 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
+var flux = require('../flux.js');
+var actions = flux.actions;
+var getters = flux.getters;
+var ReactMixin = flux.ReactMixin;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var React = require('react-native');
+var NavigatorIOS = React.NavigatorIOS;
 
-var _fluxJs = require('../flux.js');
+var CameraScreen = require('./CameraScreen.js');
+var SiteListScreen = require('./SiteListScreen.js');
 
-var _reactNative = require('react-native');
-
-var _reactNative2 = _interopRequireDefault(_reactNative);
-
-var _CameraScreenJs = require('./CameraScreen.js');
-
-var _CameraScreenJs2 = _interopRequireDefault(_CameraScreenJs);
-
-var _SiteListScreenJs = require('./SiteListScreen.js');
-
-var _SiteListScreenJs2 = _interopRequireDefault(_SiteListScreenJs);
-
-var styles = _reactNative2['default'].StyleSheet.create({
+var styles = React.StyleSheet.create({
   container: {
     flex: 1
   }
 });
 
-var CameraScreenContainer = _reactNative2['default'].createClass({
+var CameraScreenContainer = React.createClass({
   displayName: 'CameraScreenContainer',
   render: function render() {
-    return _reactNative2['default'].createElement(_CameraScreenJs2['default'], {
-      tookPicture: _fluxJs.actions.tookPicture
+    return React.createElement(CameraScreen, {
+      tookPicture: actions.tookPicture
     });
   }
 });
 
-var SiteListScreenContainer = _reactNative2['default'].createClass({
+var SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
-  mixins: [_fluxJs.ReactMixin],
+  mixins: [ReactMixin],
   getDataBindings: function getDataBindings() {
     return {
-      sites: _fluxJs.getters.sites
+      sites: getters.sites
     };
   },
   render: function render() {
     function rowPushed(navigator, row) {
-      _fluxJs.actions.selectSite(row.path);
+      actions.selectSite(row.path);
       navigator.push({
         title: row.path,
         component: CameraScreenContainer
       });
     }
 
-    return _reactNative2['default'].createElement(_SiteListScreenJs2['default'], {
+    return React.createElement(SiteListScreen, {
       listData: this.state.sites,
       rowPushed: rowPushed
     });
   }
 });
 
-exports['default'] = _reactNative2['default'].createClass({
+module.exports = React.createClass({
   displayName: 'MainNavigator',
   render: function render() {
-    return _reactNative2['default'].createElement(_reactNative.NavigatorIOS, {
+    return React.createElement(NavigatorIOS, {
       style: styles.container,
       initialRoute: {
         title: 'Sites',
@@ -71,4 +62,3 @@ exports['default'] = _reactNative2['default'].createClass({
     });
   }
 });
-module.exports = exports['default'];

@@ -1,9 +1,9 @@
-import Nuclear from 'nuclear-js'
-import * as actions from './actions.js'
-import * as getters from './getters.js'
+var Nuclear = require('nuclear-js')
+var actions = require('./actions.js')
+var getters = require('./getters.js')
 
-import sites from './stores/sites.js'
-import ui from './stores/ui.js'
+var sites = require('./stores/sites.js')
+var ui = require('./stores/ui.js')
 
 
 let flux = new Nuclear.Reactor({
@@ -18,4 +18,4 @@ flux.registerStores({
 flux.actions = actions
 flux.getters = getters
 
-export default flux
+module.exports = flux

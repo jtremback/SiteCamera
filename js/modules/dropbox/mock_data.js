@@ -1,4 +1,4 @@
-export const calls = {
+exports.calls = {
     'https://api.dropbox.com/1/metadata/auto': {
         'hash': '886d1160c1caa34680b2dea1da7a8b7e',
         'thumb_exists': false,

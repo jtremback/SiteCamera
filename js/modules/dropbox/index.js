@@ -1,19 +1,17 @@
-import {
+var React = require('react-native')
+var {
   LinkingIOS,
   NativeModules
-} from 'react-native'
+} = React
 
 let { FileTransfer } = NativeModules
 FileTransfer = thenifyAll(FileTransfer, {}, [ 'upload' ])
 
-import thenifyAll from 'thenify'
-import qs from 'query-string'
-import RNFS from 'react-native-fs'
+var thenifyAll = require('thenify')
+var qs = require('query-string')
+var RNFS = require('react-native-fs')
 
-import calls from './mock_data.js'
-
-
-export async function oauth (app_key, redirect_uri) {
+exports.oauth = async function oauth (app_key, redirect_uri) {
   return new Promise((resolve, reject) => {
     const state = Math.random() + ''
 
@@ -44,7 +42,7 @@ export async function oauth (app_key, redirect_uri) {
 // `file://${path}`
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 
-export async function uploadAndDelete (path, uploadUrl) {
+exports.uploadAndDelete = async function uploadAndDelete (path, uploadUrl) {
   let res = await FileTransfer.upload({
     path: `file://${path}`,
     uploadUrl: uploadUrl
@@ -57,7 +55,7 @@ export async function uploadAndDelete (path, uploadUrl) {
   }
 }
 
-export async function getFolders (access_token) {
+exports.getFolders = async function getFolders (access_token) {
   let res = await fetch(`https://api.dropbox.com/1/metadata/auto/`, {
     headers: {
       'Authorization': `Bearer ${access_token}`

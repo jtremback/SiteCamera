@@ -1,14 +1,14 @@
-import {
+var React = require('react-native')
+var {
   StyleSheet,
   Text,
   View,
   TouchableHighlight,
   Image,
   PropTypes,
-  default as React,
-} from 'react-native'
+} = React
 
-import Camera from 'react-native-camera'
+var Camera = require('react-native-camera')
 
 const brand_color = '#FCCC32'
 const black = '#222222'
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'CameraScreen',
   propTypes: {
     tookPicture: PropTypes.function,

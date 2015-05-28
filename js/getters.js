@@ -1,9 +1,9 @@
-export const selectedSite = [
+exports.selectedSite = [
   ['sites', 'selected'],
   ['sites', 'list'],
   (selected, list) => list[selected]
 ]
 
-export const sites = [
+exports.sites = [
   ['sites', 'list']
 ]

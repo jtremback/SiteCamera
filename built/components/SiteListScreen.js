@@ -1,15 +1,14 @@
 'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var React = require('react-native');
+var StyleSheet = React.StyleSheet;
+var View = React.View;
+var TouchableHighlight = React.TouchableHighlight;
+var ListView = React.ListView;
+var Text = React.Text;
+var PropTypes = React.PropTypes;
 
-var _reactNative = require('react-native');
-
-var _reactNative2 = _interopRequireDefault(_reactNative);
-
-var styles = _reactNative.StyleSheet.create({
+var styles = StyleSheet.create({
   thumb: {
     width: 80,
     height: 80,
@@ -31,16 +30,16 @@ var styles = _reactNative.StyleSheet.create({
   }
 });
 
-exports['default'] = _reactNative2['default'].createClass({
+module.exports = React.createClass({
   displayName: 'SiteListScreen',
   propTypes: {
-    rowPressed: _reactNative.PropTypes['function'],
-    listData: _reactNative.PropTypes.array
+    rowPressed: PropTypes['function'],
+    listData: PropTypes.array
   },
 
   getInitialState: function getInitialState() {
     return {
-      dataSource: new _reactNative.ListView.DataSource({
+      dataSource: new ListView.DataSource({
         rowHasChanged: function rowHasChanged(old, next) {
           return old.guid !== next.guid;
         }
@@ -57,40 +56,39 @@ exports['default'] = _reactNative2['default'].createClass({
   renderRow: function renderRow(row) {
     var _this = this;
 
-    return _reactNative2['default'].createElement(
-      _reactNative.TouchableHighlight,
+    return React.createElement(
+      TouchableHighlight,
       {
         onPress: function () {
           return _this.props.rowPressed(row);
         },
         underlayColor: '#dddddd'
       },
-      _reactNative2['default'].createElement(
-        _reactNative.View,
+      React.createElement(
+        View,
         null,
-        _reactNative2['default'].createElement(
-          _reactNative.View,
+        React.createElement(
+          View,
           { style: styles.rowContainer },
-          _reactNative2['default'].createElement(
-            _reactNative.View,
+          React.createElement(
+            View,
             { style: styles.textContainer },
-            _reactNative2['default'].createElement(
-              _reactNative.Text,
+            React.createElement(
+              Text,
               { style: styles.title,
                 numberOfLines: 1 },
               row.title
             )
           )
         ),
-        _reactNative2['default'].createElement(_reactNative.View, { style: styles.separator })
+        React.createElement(View, { style: styles.separator })
       )
     );
   },
 
   render: function render() {
-    return _reactNative2['default'].createElement(_reactNative.ListView, {
+    return React.createElement(ListView, {
       dataSource: this.state.dataSource,
       renderRow: this.renderRow });
   }
 });
-module.exports = exports['default'];

@@ -1,9 +1,11 @@
-import { actions } from './flux.js'
-import config from '../config.js'
-import MainNavigator from 'MainNavigator.js'
-import dropbox from './modules/dropbox'
+var React = require('react-native')
+var { actions } = require('./flux.js')
+var config = require('../config.js')
+var MainNavigator = require('MainNavigator.js')
+var dropbox = require('./modules/dropbox')
 
-export default React.createClass({
+
+module.exports = React.createClass({
   displayName: 'SiteCamera',
   componentDidMount () {
     (async function () {

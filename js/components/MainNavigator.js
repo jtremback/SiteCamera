@@ -1,7 +1,9 @@
-import { actions, getters, ReactMixin } from '../flux.js'
-import { NavigatorIOS, default as React } from 'react-native'
-import CameraScreen from './CameraScreen.js'
-import SiteListScreen from './SiteListScreen.js'
+var flux = require('../flux.js')
+var { actions, getters, ReactMixin } = flux
+var React = require('react-native')
+var { NavigatorIOS } = React
+var CameraScreen = require('./CameraScreen.js')
+var SiteListScreen = require('./SiteListScreen.js')
 
 var styles = React.StyleSheet.create({
   container: {
@@ -46,7 +48,7 @@ const SiteListScreenContainer = React.createClass({
   }
 })
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'MainNavigator',
   render () {
     return (

@@ -1,13 +1,12 @@
-'use strict'
-import {
+var React = require('react-native')
+var {
   StyleSheet,
   View,
   TouchableHighlight,
   ListView,
   Text,
   PropTypes,
-  default as React,
-} from 'react-native'
+} = React
 
 const styles = StyleSheet.create({
   thumb: {
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default React.createClass({
+module.exports = React.createClass({
   displayName: 'SiteListScreen',
   propTypes: {
     rowPressed: PropTypes.function,
