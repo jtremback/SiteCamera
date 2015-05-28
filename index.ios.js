@@ -1,4 +1,4 @@
-import SiteCamera from './built/main.js'
-import { AppRegistry } from 'react-native'
+var SiteCamera = require('./built/main.js')
+var React = require('react-native')
 
-AppRegistry.registerComponent('SiteCamera', () => SiteCamera)
+React.AppRegistry.registerComponent('SiteCamera', () => SiteCamera)

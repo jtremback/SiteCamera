@@ -1,4 +1,4 @@
-import * as dropbox from '../modules/dropbox'
+import * as dropbox from './modules/dropbox'
 import { getters, default as flux } from '../Flux.js'
 import { toImmutable } from 'nuclear-js'
 import moment from 'moment'
