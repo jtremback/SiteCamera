@@ -1,10 +1,9 @@
 import { actions } from './flux.js'
-import { AppRegistry, default as React } from 'react-native'
 import config from '../config.js'
 import MainNavigator from 'MainNavigator.js'
 import dropbox from './modules/dropbox'
 
-var SiteCamera = React.createClass({
+export default React.createClass({
   displayName: 'SiteCamera',
   componentDidMount () {
     (async function () {
@@ -20,5 +19,3 @@ var SiteCamera = React.createClass({
     )
   }
 })
-
-AppRegistry.registerComponent('SiteCamera', () => SiteCamera)

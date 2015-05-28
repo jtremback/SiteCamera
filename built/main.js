@@ -1,12 +1,12 @@
 'use strict';
 
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var _fluxJs = require('./flux.js');
-
-var _reactNative = require('react-native');
-
-var _reactNative2 = _interopRequireDefault(_reactNative);
 
 var _configJs = require('../config.js');
 
@@ -20,7 +20,7 @@ var _modulesDropbox = require('./modules/dropbox');
 
 var _modulesDropbox2 = _interopRequireDefault(_modulesDropbox);
 
-var SiteCamera = _reactNative2['default'].createClass({
+exports['default'] = React.createClass({
   displayName: 'SiteCamera',
   componentDidMount: function componentDidMount() {
     (function callee$1$0() {
@@ -46,10 +46,7 @@ var SiteCamera = _reactNative2['default'].createClass({
   },
 
   render: function render() {
-    return _reactNative2['default'].createElement(_MainNavigatorJs2['default'], null);
+    return React.createElement(_MainNavigatorJs2['default'], null);
   }
 });
-
-_reactNative.AppRegistry.registerComponent('SiteCamera', function () {
-  return SiteCamera;
-});
+module.exports = exports['default'];
