@@ -4,13 +4,12 @@ var {
   NativeModules
 } = React
 
-let { FileTransfer } = NativeModules
-
-FileTransfer = thenifyAll(FileTransfer, {}, [ 'upload' ])
-
-var thenifyAll = require('thenify')
 var qs = require('query-string')
 var RNFS = require('react-native-fs')
+
+var promisify = require('es6-promisify')
+let { FileTransfer } = NativeModules
+var upload = promisify(FileTransfer.upload)
 
 exports.oauth = async function oauth (app_key, redirect_uri) {
   return new Promise((resolve, reject) => {
@@ -44,7 +43,7 @@ exports.oauth = async function oauth (app_key, redirect_uri) {
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 
 exports.uploadAndDelete = async function uploadAndDelete (path, uploadUrl) {
-  let res = await FileTransfer.upload({
+  let res = await upload({
     path: `file://${path}`,
     uploadUrl: uploadUrl
   })
