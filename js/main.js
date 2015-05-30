@@ -3,6 +3,9 @@ var { actions } = require('./flux.js')
 var config = require('../config.js')
 var MainNavigator = require('MainNavigator.js')
 var dropbox = require('./modules/dropbox')
+var React = require('react-native')
+
+console.log('arse')
 
 
 module.exports = React.createClass({

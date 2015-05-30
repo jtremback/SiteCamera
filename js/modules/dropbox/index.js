@@ -5,6 +5,7 @@ var {
 } = React
 
 let { FileTransfer } = NativeModules
+
 FileTransfer = thenifyAll(FileTransfer, {}, [ 'upload' ])
 
 var thenifyAll = require('thenify')
