@@ -4,6 +4,7 @@ var getters = require('./getters.js')
 
 var sites = require('./stores/sites.js')
 var ui = require('./stores/ui.js')
+var config = require('./stores/config.js')
 
 
 let flux = new Nuclear.Reactor({
@@ -12,7 +13,8 @@ let flux = new Nuclear.Reactor({
 
 flux.registerStores({
   sites,
-  ui
+  // ui,
+  config,
 })
 
 flux.actions = actions

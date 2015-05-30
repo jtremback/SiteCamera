@@ -1,7 +1,7 @@
 var React = require('react-native')
 var { actions } = require('./flux.js')
 var config = require('../config.js')
-var MainNavigator = require('MainNavigator.js')
+var MainNavigator = require('./components/MainNavigator.js')
 var dropbox = require('./modules/dropbox')
 var React = require('react-native')
 
