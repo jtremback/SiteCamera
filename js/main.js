@@ -11,11 +11,10 @@ console.log('arse')
 module.exports = React.createClass({
   displayName: 'SiteCamera',
   componentDidMount () {
-    (async function () {
-      let access_token = await dropbox.oauth(config.app_key, config.redirect_url)
+    dropbox.oauth(config.app_key, config.redirect_url).then((access_token) => {
       actions.setConfig('dropbox_access_token', access_token)
       actions.getSites()
-    })()
+    })
   },
 
   render () {

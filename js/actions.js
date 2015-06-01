@@ -9,20 +9,21 @@ function storeSites(sites) {
   flux.dispatch('STORE_SITES', toImmutable(sites));
 }
 
-exports.getSites = async function getSites () {
-  dropbox.getFolders().then((sites) => {
+exports.getSites = getSites
+function getSites () {
+  return dropbox.getFolders().then((sites) => {
     storeSites(sites)
   })
 }
 
 exports.selectSite = selectSite
-function selectSite(path) {
+function selectSite (path) {
   flux.dispatch('SELECT_SITE', path)
 }
 
 exports.tookPicture = tookPicture
 function tookPicture (path) {
-  dropbox.uploadAndDelete(
+  return dropbox.uploadAndDelete(
     path,
     flux.evaluate(getters.selectedSite) +
       `/${moment().format('MMMM Do YYYY')}` +
