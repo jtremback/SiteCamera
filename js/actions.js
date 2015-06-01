@@ -10,8 +10,9 @@ function storeSites(sites) {
 }
 
 exports.getSites = async function getSites () {
-  const sites = await dropbox.getFolders()
-  storeSites(sites)
+  dropbox.getFolders().then((sites) => {
+    storeSites(sites)
+  })
 }
 
 exports.selectSite = selectSite
@@ -19,11 +20,14 @@ function selectSite(path) {
   flux.dispatch('SELECT_SITE', path)
 }
 
-exports.tookPicture = async function tookPicture (path) {
-  await dropbox.uploadAndDelete(
+exports.tookPicture = tookPicture
+function tookPicture (path) {
+  dropbox.uploadAndDelete(
     path,
     flux.evaluate(getters.selectedSite) +
-    `/${moment().format('MMMM Do YYYY')}` +
-    `/${moment().format('h:mm:ss a')}.jpg`
-  )
+      `/${moment().format('MMMM Do YYYY')}` +
+      `/${moment().format('h:mm:ss a')}.jpg`
+  ).then(() => {
+    console.log('hyphy')
+  })
 }

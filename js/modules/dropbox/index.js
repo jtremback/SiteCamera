@@ -11,7 +11,8 @@ var promisify = require('es6-promisify')
 let { FileTransfer } = NativeModules
 var upload = promisify(FileTransfer.upload)
 
-exports.oauth = async function oauth (app_key, redirect_uri) {
+exports.oauth = oauth
+function oauth (app_key, redirect_uri) {
   return new Promise((resolve, reject) => {
     const state = Math.random() + ''
 
@@ -24,6 +25,7 @@ exports.oauth = async function oauth (app_key, redirect_uri) {
       '&redirect_uri=' + redirect_uri,
       `&state=${state}`
     ].join(''))
+
     function handleUrl (event) {
       const [, query_string] = event.url.match(/\#(.*)/)
       const query = qs.parse(query_string)
@@ -42,25 +44,28 @@ exports.oauth = async function oauth (app_key, redirect_uri) {
 // `file://${path}`
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 
-exports.uploadAndDelete = async function uploadAndDelete (path, uploadUrl) {
-  let res = await upload({
+exports.uploadAndDelete = uploadAndDelete
+function uploadAndDelete (path, uploadUrl) {
+  return upload({
     path: `file://${path}`,
     uploadUrl: uploadUrl
-  })
-
-  if (res.status === '200') {
-    await RNFS.unlink(path)
-  } else {
-    throw new Error('Transfer Failed: ' + res.status)
-  }
-}
-
-exports.getFolders = async function getFolders (access_token) {
-  let res = await fetch(`https://api.dropbox.com/1/metadata/auto/`, {
-    headers: {
-      'Authorization': `Bearer ${access_token}`
+  }).then((res) => {
+    if (res.status === '200') {
+      RNFS.unlink(path)
+    } else {
+      throw new Error('Transfer Failed: ' + res.status)
     }
   })
 
-  console.log(res)
+}
+
+exports.getFolders = getFolders
+function getFolders (access_token) {
+  return fetch(`https://api.dropbox.com/1/metadata/auto/`, {
+    headers: {
+      'Authorization': `Bearer ${access_token}`
+    }
+  }).then((res) => {
+    console.log(res)
+  })
 }
