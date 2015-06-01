@@ -5,9 +5,6 @@ var MainNavigator = require('./components/MainNavigator.js')
 var dropbox = require('./modules/dropbox')
 var React = require('react-native')
 
-console.log('arse')
-
-
 module.exports = React.createClass({
   displayName: 'SiteCamera',
   componentDidMount () {
