@@ -27,7 +27,7 @@ function dropboxOauth () {
 
 exports.setConfig = setConfig
 function setConfig (k, v) {
-  flux.dispatch('SET_CONFIG', k, toImmutable(v))
+  flux.dispatch('SET_CONFIG', [k, toImmutable(v)])
 }
 
 exports.selectSite = selectSite
