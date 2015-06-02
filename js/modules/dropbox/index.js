@@ -61,6 +61,7 @@ function uploadAndDelete (path, uploadUrl) {
 
 exports.getFolders = getFolders
 function getFolders (access_token) {
+  debugger
   return fetch(`https://api.dropbox.com/1/metadata/auto/`, {
     headers: {
       'Authorization': `Bearer ${access_token}`

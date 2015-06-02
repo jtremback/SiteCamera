@@ -7,3 +7,5 @@ exports.selectedSite = [
 exports.sites = [
   ['sites', 'list']
 ]
+
+exports.dropboxAccessToken = ['config', 'dropbox_access_token']

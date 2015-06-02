@@ -12,7 +12,9 @@ function storeSites(sites) {
 
 exports.getSites = getSites
 function getSites () {
-  return dropbox.getFolders().then((sites) => {
+  let access_token = flux.evaluate(getters.dropboxAccessToken)
+  debugger
+  return dropbox.getFolders(access_token).then((sites) => {
     storeSites(sites)
   })
 }
