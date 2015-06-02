@@ -1,19 +1,13 @@
 var React = require('react-native')
-var { actions } = require('./flux.js')
-var config = require('../config.js')
+var actions = require('./actions.js')
 var MainNavigator = require('./components/MainNavigator.js')
-var dropbox = require('./modules/dropbox')
 var React = require('react-native')
 
 module.exports = React.createClass({
   displayName: 'SiteCamera',
   componentDidMount () {
-    dropbox.oauth(config.app_key, config.redirect_url).then((access_token) => {
-      actions.setConfig('dropbox_access_token', access_token)
-      actions.getSites()
-    })
+    actions.dropboxOauth()
   },
-
   render () {
     return (
       <MainNavigator />

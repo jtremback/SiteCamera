@@ -16,7 +16,7 @@ function oauth (app_key, redirect_uri) {
   return new Promise((resolve, reject) => {
     const state = Math.random() + ''
 
-    LinkingIOS.addEventListener('url', handleUrl)
+    LinkingIOS.addEventListener('url', _handleUrl)
 
     LinkingIOS.openURL([
       'https://www.dropbox.com/1/oauth2/authorize',
@@ -26,7 +26,7 @@ function oauth (app_key, redirect_uri) {
       `&state=${state}`
     ].join(''))
 
-    function handleUrl (event) {
+    function _handleUrl (event) {
       const [, query_string] = event.url.match(/\#(.*)/)
       const query = qs.parse(query_string)
 
@@ -36,7 +36,7 @@ function oauth (app_key, redirect_uri) {
         reject(new Error('Oauth2 security error'))
       }
 
-      LinkingIOS.removeEventListener('url', handleUrl)
+      LinkingIOS.removeEventListener('url', _handleUrl)
     }
   })
 }
