@@ -7,15 +7,14 @@ var config = require('../config.js')
 
 exports.storeSites = storeSites
 function storeSites(sites) {
-  flux.dispatch('STORE_SITES', toImmutable(sites));
+  flux.dispatch('REPLACE_SITES', toImmutable(sites));
 }
 
 exports.getSites = getSites
 function getSites () {
-  let access_token = flux.evaluate(getters.dropboxAccessToken)
-  debugger
-  return dropbox.getFolders(access_token).then((sites) => {
-    storeSites(sites)
+  const access_token = flux.evaluate(getters.dropboxAccessToken)
+  return dropbox.getFolders(access_token).then((folders) => {
+    storeSites(folders.contents)
   })
 }
 
@@ -40,6 +39,7 @@ function selectSite (path) {
 exports.tookPicture = tookPicture
 function tookPicture (path) {
   return dropbox.uploadAndDelete(
+    getters.dropboxAccessToken,
     path,
     flux.evaluate(getters.selectedSite) +
       `/${moment().format('MMMM Do YYYY')}` +

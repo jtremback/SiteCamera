@@ -26,6 +26,9 @@ const CameraScreenContainer = React.createClass({
 const SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
   mixins: [flux.ReactMixin],
+  componentDidMount () {
+    console.log('arse')
+  },
   getDataBindings () {
     return {
       sites: getters.sites
@@ -40,6 +43,7 @@ const SiteListScreenContainer = React.createClass({
       })
     }
 
+    console.log('stet', this.state)
     return (
       <SiteListScreen
         listData={this.state.sites}

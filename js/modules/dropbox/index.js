@@ -45,9 +45,12 @@ function oauth (app_key, redirect_uri) {
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 
 exports.uploadAndDelete = uploadAndDelete
-function uploadAndDelete (path, uploadUrl) {
+function uploadAndDelete (access_token, path, uploadUrl) {
   return upload({
     path: `file://${path}`,
+    headers: {
+      'Authorization': `Bearer ${access_token}`
+    },
     uploadUrl: uploadUrl
   }).then((res) => {
     if (res.status === '200') {
@@ -61,12 +64,18 @@ function uploadAndDelete (path, uploadUrl) {
 
 exports.getFolders = getFolders
 function getFolders (access_token) {
-  debugger
   return fetch(`https://api.dropbox.com/1/metadata/auto/`, {
     headers: {
       'Authorization': `Bearer ${access_token}`
     }
-  }).then((res) => {
-    console.log(res)
+  })
+  .then(function(response) {
+    console.log('res', response)
+    return response.json()
+  }).then(function(json) {
+    console.log('parsed json', json)
+    return json
+  }).catch(function(ex) {
+    console.log('parsing failed', ex)
   })
 }

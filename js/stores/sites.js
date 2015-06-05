@@ -14,28 +14,20 @@ module.exports = new Nuclear.Store({
     // }
     return toImmutable({
       selected: null,
-      sites: {}
+      sites: []
     })
   },
 
   initialize () {
     // all action handlers are pure functions that take the current state and payload
     // and the returned value gets set as the new state
-    this.on('ADD_SITE', addSite)
     this.on('REPLACE_SITES', replaceSites)
     this.on('SELECT_SITE', selectSite)
   }
 })
 
-
-function addSite (state, path) {
-  return state.push(toImmutable({
-    path: path,
-  }))
-}
-
 function replaceSites (state, sites) {
-  return state.set('list', toImmutable(sites))
+  return state.set('sites', sites)
 }
 
 function selectSite (state, site) {
