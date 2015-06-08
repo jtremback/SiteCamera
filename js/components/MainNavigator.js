@@ -34,28 +34,19 @@ const SiteListScreenContainer = React.createClass({
     }
   },
 
-  rowPressed (e) {
-    actions.selectSite(e.path)
+  rowPressed (row) {
+    actions.selectSite(row.name)
     this.props.navigator.push({
-      title: e.path,
+      title: row.name,
       component: CameraScreenContainer
     });
   },
 
   render () {
-    function rowPushed (navigator, row) {
-      actions.selectSite(row.path)
-      navigator.push({
-        title: row.path,
-        component: CameraScreenContainer
-      })
-    }
-
     return (
       <SiteListScreen
         rowPressed={this.rowPressed}
         listData={this.state.sites}
-        rowPushed={rowPushed}
       />
     )
   }

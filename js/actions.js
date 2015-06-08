@@ -13,9 +13,8 @@ function storeSites(sites) {
 exports.getSites = getSites
 function getSites () {
   const access_token = flux.evaluate(getters.dropboxAccessToken)
-  return dropbox.getFolders(access_token).then((folders) => {
-    storeSites(folders.contents)
-  })
+  return dropbox.getFolders(access_token)
+  .then(storeSites)
 }
 
 exports.dropboxOauth = dropboxOauth

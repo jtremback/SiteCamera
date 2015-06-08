@@ -66,7 +66,7 @@ module.exports = React.createClass({
           <View style={styles.rowContainer}>
             <View style={styles.textContainer}>
               <Text style={styles.title}
-                numberOfLines={1}>{row.path}</Text>
+                numberOfLines={1}>{row.name}</Text>
             </View>
           </View>
           <View style={styles.separator}/>

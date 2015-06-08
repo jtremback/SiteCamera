@@ -1,15 +1,15 @@
-var React = require('react-native')
-var {
+const React = require('react-native')
+const {
   LinkingIOS,
   NativeModules
 } = React
 
-var qs = require('query-string')
-var RNFS = require('react-native-fs')
+const qs = require('query-string')
+const RNFS = require('react-native-fs')
 
-var promisify = require('es6-promisify')
-let { FileTransfer } = NativeModules
-var upload = promisify(FileTransfer.upload)
+const promisify = require('es6-promisify')
+const { FileTransfer } = NativeModules
+const upload = promisify(FileTransfer.upload)
 
 exports.oauth = oauth
 function oauth (app_key, redirect_uri) {
@@ -72,10 +72,10 @@ function getFolders (access_token) {
   .then(function(response) {
     console.log('res', response)
     return response.json()
-  }).then(function(json) {
-    console.log('parsed json', json)
-    return json
-  }).catch(function(ex) {
-    console.log('parsing failed', ex)
+  })
+  .then(function(json) {
+    return json.contents.map(item => ({
+      name: item.path.slice(1)
+    }))
   })
 }
