@@ -33,8 +33,13 @@ const styles = StyleSheet.create({
 module.exports = React.createClass({
   displayName: 'SiteListScreen',
   propTypes: {
+
+    // An array of rows
+    listData: PropTypes.array,
+
+    // rowPressed is passed the row that was pressed
     rowPressed: PropTypes.function,
-    listData: PropTypes.array
+
   },
 
   getInitialState () {

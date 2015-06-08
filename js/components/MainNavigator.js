@@ -6,6 +6,8 @@ var { NavigatorIOS } = React
 var CameraScreen = require('./CameraScreen.js')
 var SiteListScreen = require('./SiteListScreen.js')
 
+var colors = require('../styles/colors.js')
+
 var styles = React.StyleSheet.create({
   container: {
     flex: 1
@@ -26,14 +28,20 @@ const CameraScreenContainer = React.createClass({
 const SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
   mixins: [flux.ReactMixin],
-  componentDidMount () {
-    console.log('arse')
-  },
   getDataBindings () {
     return {
       sites: getters.sites
     }
   },
+
+  rowPressed (e) {
+    actions.selectSite(e.path)
+    this.props.navigator.push({
+      title: e.path,
+      component: CameraScreenContainer
+    });
+  },
+
   render () {
     function rowPushed (navigator, row) {
       actions.selectSite(row.path)
@@ -43,9 +51,9 @@ const SiteListScreenContainer = React.createClass({
       })
     }
 
-    console.log('stet', this.state)
     return (
       <SiteListScreen
+        rowPressed={this.rowPressed}
         listData={this.state.sites}
         rowPushed={rowPushed}
       />
@@ -58,9 +66,11 @@ module.exports = React.createClass({
   render () {
     return (
       <NavigatorIOS
+        barTintColor={colors.black}
+        titleTextColor={colors.brand}
         style={styles.container}
         initialRoute={{
-          title: 'Sites',
+          title: 'Job Sites',
           component: SiteListScreenContainer
         }}
       />

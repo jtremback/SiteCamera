@@ -10,15 +10,13 @@ var {
 
 var Camera = require('react-native-camera')
 
-const brand_color = '#FCCC32'
-const black = '#222222'
-
+var colors = require('../styles/colors.js')
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
   statusBar: {
-    backgroundColor: black,
+    backgroundColor: colors.black,
     height: 22
   },
   camera: {
@@ -29,13 +27,13 @@ const styles = StyleSheet.create({
   },
   bottomBar: {
     justifyContent: 'center',
-    backgroundColor: black,
+    backgroundColor: colors.black,
     height: 30,
     paddingLeft: 8,
     paddingRight: 8
   },
   bottomBarText: {
-    color: brand_color,
+    color: colors.brand,
     textAlign: 'center',
     fontSize: 16
   },
@@ -46,19 +44,25 @@ const styles = StyleSheet.create({
   cameraButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: brand_color,
+    backgroundColor: colors.brand,
     borderRadius: 20,
     width: 75,
-    height: 75
+    height: 75,
+  },
+  cameraButtonInner: {
+    width: 65,
+    borderRadius: 15,
+    height: 65,
+    backgroundColor: colors.black,
   },
   cameraIcon: {
     width: 50,
     height: 40
   },
   picCounter: {
-    backgroundColor: black,
+    backgroundColor: colors.black,
     borderRadius: 5,
-    borderColor: brand_color,
+    borderColor: colors.brand,
     borderWidth: 2,
     position: 'absolute',
     paddingLeft: 3,
@@ -69,7 +73,7 @@ const styles = StyleSheet.create({
     right: -5,
   },
   picCounterText: {
-    color: brand_color,
+    color: colors.brand,
     fontSize: 16,
     fontWeight: 'bold',
   }
@@ -113,18 +117,15 @@ module.exports = React.createClass({
         >
           <View style={styles.cameraButtonContainer}>
             <TouchableHighlight style={styles.cameraButton}
-              onPress={this.takePicture}>
-              <Image
-                source={require('image!camera_icon')}
-                style={styles.cameraIcon}
-                resizeMode='contain'/>
+            onPress={this.takePicture}>
+              <View style={styles.cameraButtonInner}/>
             </TouchableHighlight>
-            <View style={styles.picCounter}>
-              <Text style={styles.picCounterText}>{jankyMinWidth(10)}</Text>
-            </View>
           </View>
         </Camera>
       </View>
     )
   },
 })
+            // <View style={styles.picCounter}>
+            //   <Text style={styles.picCounterText}>{jankyMinWidth(10)}</Text>
+            // </View>
