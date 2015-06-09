@@ -92,11 +92,13 @@ module.exports = React.createClass({
     }
   },
 
-  takePicture() {
-    this.refs.cam.capture(this.props.tookPicture)
+  takePicture () {
+    this.refs.cam.capture((err, path) => {
+      this.props.tookPicture(path)
+    })
   },
 
-  render() {
+  render () {
     function jankyMinWidth (input) {
       input = input + ''
       if (input.length === 1 ) {
@@ -110,7 +112,7 @@ module.exports = React.createClass({
       <View style={styles.container}>
         <View style={styles.statusBar} />
         <Camera
-          ref="cam"
+          ref='cam'
           style={styles.camera}
           captureTarget='disk'
           type={this.props.cameraType}

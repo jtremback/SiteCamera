@@ -38,7 +38,7 @@ const SiteListScreenContainer = React.createClass({
     actions.selectSite(row.name)
     this.props.navigator.push({
       title: row.name,
-      component: CameraScreenContainer
+      component: CameraScreenContainer,
     });
   },
 
@@ -62,7 +62,8 @@ module.exports = React.createClass({
         style={styles.container}
         initialRoute={{
           title: 'Job Sites',
-          component: SiteListScreenContainer
+          component: SiteListScreenContainer,
+          backButtonTitle: '',
         }}
       />
     )

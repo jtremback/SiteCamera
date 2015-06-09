@@ -1,2 +1,2 @@
-exports.black = '#222222'
+exports.black = '#111'
 exports.brand = '#FCCC32'

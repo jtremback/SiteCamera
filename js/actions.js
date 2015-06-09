@@ -19,7 +19,8 @@ function getSites () {
 
 exports.dropboxOauth = dropboxOauth
 function dropboxOauth () {
-  dropbox.oauth(config.app_key, config.redirect_url).then((access_token) => {
+  dropbox.oauth(config.app_key, config.redirect_url)
+  .then((access_token) => {
     setConfig('dropbox_access_token', access_token)
     getSites()
   })
@@ -38,12 +39,14 @@ function selectSite (path) {
 exports.tookPicture = tookPicture
 function tookPicture (path) {
   return dropbox.uploadAndDelete(
-    getters.dropboxAccessToken,
+    flux.evaluate(getters.dropboxAccessToken),
     path,
     flux.evaluate(getters.selectedSite) +
       `/${moment().format('MMMM Do YYYY')}` +
       `/${moment().format('h:mm:ss a')}.jpg`
   ).then(() => {
     console.log('hyphy')
+  }).catch((err) => {
+    console.log(err)
   })
 }

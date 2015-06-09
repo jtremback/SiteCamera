@@ -46,8 +46,9 @@ function oauth (app_key, redirect_uri) {
 
 exports.uploadAndDelete = uploadAndDelete
 function uploadAndDelete (access_token, path, uploadUrl) {
+  debugger
   return upload({
-    path: `file://${path}`,
+    uri: `file://${path}`,
     headers: {
       'Authorization': `Bearer ${access_token}`
     },
