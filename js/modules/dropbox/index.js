@@ -59,7 +59,6 @@ function uploadAndDelete (access_token, path, uploadUrl) {
       throw new Error('Transfer Failed: ' + res.status)
     }
   })
-
 }
 
 exports.getFolders = getFolders
@@ -69,13 +68,12 @@ function getFolders (access_token) {
       'Authorization': `Bearer ${access_token}`
     }
   })
-  .then(function(response) {
-    console.log('res', response)
-    return response.json()
-  })
+  .then(res => res.json())
   .then(function(json) {
-    return json.contents.map(item => ({
-      name: item.path.slice(1)
-    }))
+    return json.contents.reduce((acc, item) => {
+      const name = item.path.slice(1)
+      acc[name] = { name }
+      return acc
+    }, {})
   })
 }
