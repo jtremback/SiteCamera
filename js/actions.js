@@ -14,6 +14,13 @@ exports.getSites = getSites
 function getSites () {
   const access_token = flux.evaluate(getters.dropboxAccessToken)
   return dropbox.getFolders(access_token)
+  .then(folders => {
+    return folders.reduce((acc, item) => {
+      const name = item.path.slice(1)
+      acc[name] = { name }
+      return acc
+    }, {})
+  })
   .then(storeSites)
 }
 
@@ -41,7 +48,7 @@ function tookPicture (path) {
   return dropbox.uploadAndDelete(
     flux.evaluate(getters.dropboxAccessToken),
     path,
-    flux.evaluate(getters.selectedSite) +
+    flux.evaluate(getters.selectedSite).path +
       `/${moment().format('MMMM Do YYYY')}` +
       `/${moment().format('h:mm:ss a')}.jpg`
   ).then(() => {

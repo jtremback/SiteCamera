@@ -1,9 +1,7 @@
 exports.selectedSite = [
   ['sites', 'selected'],
   ['sites', 'sites'],
-  (selected, sites) => {
-    sites.get(selected).toJS()
-  }
+  (selected, sites) => sites.get(selected).toJS()
 ]
 
 exports.sites = [

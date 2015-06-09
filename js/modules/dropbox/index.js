@@ -46,7 +46,6 @@ function oauth (app_key, redirect_uri) {
 
 exports.uploadAndDelete = uploadAndDelete
 function uploadAndDelete (access_token, path, uploadUrl) {
-  debugger
   return upload({
     uri: `file://${path}`,
     headers: {
@@ -57,7 +56,7 @@ function uploadAndDelete (access_token, path, uploadUrl) {
     if (res.status === '200') {
       RNFS.unlink(path)
     } else {
-      throw new Error('Transfer Failed: ' + res.status)
+      throw new Error('Transfer Failed: ' + JSON.stringify(res))
     }
   })
 }
@@ -71,10 +70,6 @@ function getFolders (access_token) {
   })
   .then(res => res.json())
   .then(function(json) {
-    return json.contents.reduce((acc, item) => {
-      const name = item.path.slice(1)
-      acc[name] = { name }
-      return acc
-    }, {})
+    return json.contents
   })
 }
