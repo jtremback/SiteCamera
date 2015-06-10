@@ -1,3 +1,4 @@
+'use strict';
 var Nuclear = require('nuclear-js')
 
 var sites = require('./stores/sites.js')

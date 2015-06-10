@@ -10,10 +10,10 @@
     "es6-promisify": "^1.1.1",
     "nuclear-js": "git://github.com/optimizely/nuclear-js.git",
     "query-string": "^2.2.0",
-    "react-native": "0.5.0",
-    "react-native-camera": "0.2.10",
-    "react-native-file-transfer": "0.0.3",
-    "react-native-fs": "0.3.1"
+    "react-native": "0.6.0-rc",
+    "react-native-camera": "jtremback/react-native-camera",
+    "react-native-file-upload": "^1.0.0",
+    "react-native-fs": "jtremback/react-native-fs"
   },
   "devDependencies": {
     "babel-eslint": "^3.1.5",

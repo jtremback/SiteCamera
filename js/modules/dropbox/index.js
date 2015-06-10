@@ -8,8 +8,8 @@ const qs = require('query-string')
 const RNFS = require('react-native-fs')
 
 const promisify = require('es6-promisify')
-const { FileTransfer } = NativeModules
-const upload = promisify(FileTransfer.upload)
+const { FileUpload } = NativeModules
+const upload = promisify(FileUpload.upload)
 
 exports.oauth = oauth
 function oauth (app_key, redirect_uri) {
@@ -45,17 +45,30 @@ function oauth (app_key, redirect_uri) {
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 
 exports.uploadAndDelete = uploadAndDelete
-function uploadAndDelete (access_token, path, uploadUrl) {
+function uploadAndDelete (access_token, path, upload_path) {
   return upload({
-    uri: `file://${path}`,
+    // uri: `/${path}`,
+    // fileName: 'foo',
+    // mimeType: 'image/jpeg',
+    files: [
+      {
+        filename: 'foo', // require, file name
+        filepath: path, // require, file absoluete path
+        filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
+      }
+    ],
     headers: {
       'Authorization': `Bearer ${access_token}`
     },
-    uploadUrl: uploadUrl
+    // uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto' + upload_path,
+    uploadUrl: 'http://192.168.1.100:3000/upload'
   }).then((res) => {
-    if (res.status === '200') {
-      RNFS.unlink(path)
-    } else {
+    console.log(res.status)
+    RNFS.unlink(path)
+      .then(console.log)
+      .catch((err) => console.log(err))
+
+    if (res.status !== '200') {
       throw new Error('Transfer Failed: ' + JSON.stringify(res))
     }
   })

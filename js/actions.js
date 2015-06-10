@@ -16,8 +16,9 @@ function getSites () {
   return dropbox.getFolders(access_token)
   .then(folders => {
     return folders.reduce((acc, item) => {
-      const name = item.path.slice(1)
-      acc[name] = { name }
+      const path = item.path
+      const name = path.slice(1)
+      acc[name] = { name, path }
       return acc
     }, {})
   })
@@ -45,12 +46,15 @@ function selectSite (path) {
 
 exports.tookPicture = tookPicture
 function tookPicture (path) {
+  const uploadUrl = encodeURI(flux.evaluate(getters.selectedSite).path +
+    `/${moment().format('MMMM Do YYYY')}` +
+    `/${moment().format('h:mm:ss a')}.jpg`
+  )
+
   return dropbox.uploadAndDelete(
     flux.evaluate(getters.dropboxAccessToken),
     path,
-    flux.evaluate(getters.selectedSite).path +
-      `/${moment().format('MMMM Do YYYY')}` +
-      `/${moment().format('h:mm:ss a')}.jpg`
+    uploadUrl
   ).then(() => {
     console.log('hyphy')
   }).catch((err) => {
