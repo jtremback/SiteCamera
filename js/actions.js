@@ -27,11 +27,14 @@ function getSites () {
 
 exports.dropboxOauth = dropboxOauth
 function dropboxOauth () {
-  dropbox.oauth(config.app_key, config.redirect_url)
-  .then((access_token) => {
-    setConfig('dropbox_access_token', access_token)
-    getSites()
-  })
+  // dropbox.oauth(config.app_key, config.redirect_url)
+  // .then((access_token) => {
+  //   console.log(access_token)
+  //   setConfig('dropbox_access_token', access_token)
+    // getSites()
+  // })
+  setConfig('dropbox_access_token', 'eFEcGxgInLIAAAAAAAAWLBDbWdhsJ-_yQbmOo84eD6_GOuULZ62ZSIbydYYMzCLE')
+  getSites()
 }
 
 exports.setConfig = setConfig
