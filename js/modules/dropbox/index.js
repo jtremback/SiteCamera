@@ -50,18 +50,23 @@ function uploadAndDelete (access_token, path, upload_path) {
     // uri: `/${path}`,
     // fileName: 'foo',
     // mimeType: 'image/jpeg',
-    files: [
-      {
-        filename: 'foo', // require, file name
-        filepath: path, // require, file absoluete path
-        filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
-      }
-    ],
+    // files: [
+    //   {
+    //     filename: 'foo', // require, file name
+    //     filepath: path, // require, file absoluete path
+    //     filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
+    //   }
+    // ],
+    file: {
+      filename: 'foo', // require, file name
+      filepath: path, // require, file absoluete path
+      filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
+    },
     headers: {
       'Authorization': `Bearer ${access_token}`
     },
-    // uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto' + upload_path,
-    uploadUrl: 'http://192.168.1.100:3000/upload'
+    uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto' + upload_path,
+    // uploadUrl: 'http://10.0.1.243:3000/upload'
   }).then((res) => {
     console.log(res.status)
     RNFS.unlink(path)
