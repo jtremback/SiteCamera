@@ -4,7 +4,7 @@ var MainNavigator = require('./components/MainNavigator.js')
 var React = require('react-native')
 
 module.exports = React.createClass({
-  displayName: 'SiteCamera',
+  displayName: 'Frame',
   componentDidMount () {
     actions.dropboxOauth()
   },

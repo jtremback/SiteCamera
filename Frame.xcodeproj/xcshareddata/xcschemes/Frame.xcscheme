@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "SiteCamera.app"
-               BlueprintName = "SiteCamera"
-               ReferencedContainer = "container:SiteCamera.xcodeproj">
+               BuildableName = "Frame.app"
+               BlueprintName = "Frame"
+               ReferencedContainer = "container:Frame.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "SiteCameraTests.xctest"
-               BlueprintName = "SiteCameraTests"
-               ReferencedContainer = "container:SiteCamera.xcodeproj">
+               BuildableName = "FrameTests.xctest"
+               BlueprintName = "FrameTests"
+               ReferencedContainer = "container:Frame.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "SiteCameraTests.xctest"
-               BlueprintName = "SiteCameraTests"
-               ReferencedContainer = "container:SiteCamera.xcodeproj">
+               BuildableName = "FrameTests.xctest"
+               BlueprintName = "FrameTests"
+               ReferencedContainer = "container:Frame.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SiteCamera.app"
-            BlueprintName = "SiteCamera"
-            ReferencedContainer = "container:SiteCamera.xcodeproj">
+            BuildableName = "Frame.app"
+            BlueprintName = "Frame"
+            ReferencedContainer = "container:Frame.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SiteCamera.app"
-            BlueprintName = "SiteCamera"
-            ReferencedContainer = "container:SiteCamera.xcodeproj">
+            BuildableName = "Frame.app"
+            BlueprintName = "Frame"
+            ReferencedContainer = "container:Frame.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "SiteCamera.app"
-            BlueprintName = "SiteCamera"
-            ReferencedContainer = "container:SiteCamera.xcodeproj">
+            BuildableName = "Frame.app"
+            BlueprintName = "Frame"
+            ReferencedContainer = "container:Frame.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

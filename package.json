@@ -1,10 +1,9 @@
 {
-  "name": "SiteCamera",
+  "name": "Frame",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh",
-    "ipreplace": "rn-ip-replace"
+    "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
     "es6-promisify": "^1.1.1",
@@ -12,7 +11,6 @@
     "query-string": "^2.2.0",
     "react-native": "0.6.0-rc",
     "react-native-camera": "jtremback/react-native-camera",
-    "react-native-file-upload": "^1.0.0",
     "react-native-fs": "jtremback/react-native-fs"
   },
   "devDependencies": {
@@ -67,10 +65,5 @@
       "no-underscore-dangle": 0,
       "comma-dangle": 0
     }
-  },
-  "rnIpReplace": {
-    "files": [
-      "./iOS/AppDelegate.m"
-    ]
   }
 }

@@ -11,13 +11,7 @@
 
 #import "RCTRootView.h"
 
-#import "RCTLinkingManager.h"
-
 @implementation AppDelegate
-
- - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-   return [RCTLinkingManager application:application openURL:url sourceApplication:sourceApplication annotation:annotation];
- }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -37,7 +31,7 @@
    * on the same Wi-Fi network.
    */
 
-  jsCodeLocation = [NSURL URLWithString:@"http://10.0.1.243:8081/index.ios.bundle"]; /* ip-replace 192.168.1.103 */
+  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle"];
 
   /**
    * OPTION 2
@@ -52,7 +46,7 @@
 //   jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
-                                                      moduleName:@"SiteCamera"
+                                                      moduleName:@"Frame"
                                                    launchOptions:launchOptions];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -64,15 +58,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
