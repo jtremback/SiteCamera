@@ -35,7 +35,7 @@ module.exports = React.createClass({
   propTypes: {
 
     // An array of rows
-    listData: PropTypes.array,
+    listData: PropTypes.object,
 
     // rowPressed is passed the row that was pressed
     rowPressed: PropTypes.function,

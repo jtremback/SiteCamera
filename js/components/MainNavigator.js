@@ -2,7 +2,7 @@ var flux = require('../flux.js')
 var getters = require('../getters.js')
 var actions = require('../actions.js')
 var React = require('react-native')
-var { NavigatorIOS } = React
+var { NavigatorIOS, PropTypes } = React
 var CameraScreen = require('./CameraScreen.js')
 var SiteListScreen = require('./SiteListScreen.js')
 
@@ -27,7 +27,11 @@ const CameraScreenContainer = React.createClass({
 
 const SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
+  propTypes: {
+    navigator: PropTypes.function,
+  },
   mixins: [flux.ReactMixin],
+
   getDataBindings () {
     return {
       sites: getters.sites
