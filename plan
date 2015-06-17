@@ -1,0 +1,18 @@
+- Flip camera
+- Pull to reload sites
+- Add site
+
+- Photo upload and saving system
+
+  - Take photo
+    - Take photo
+    - Upload photo
+
+  - Upload photo
+    - Make request
+    - If success
+      - Delete
+
+  - Check for un-uploaded photos
+    - Check fs
+    - Replace state in store
