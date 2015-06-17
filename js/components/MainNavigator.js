@@ -19,7 +19,7 @@ const CameraScreenContainer = React.createClass({
   render () {
     return (
       <CameraScreen
-        tookPicture={actions.tookPicture}
+        tookPhoto={actions.tookPhoto}
       />
     )
   }

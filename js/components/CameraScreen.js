@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 module.exports = React.createClass({
   displayName: 'CameraScreen',
   propTypes: {
-    tookPicture: PropTypes.function,
+    tookPhoto: PropTypes.function,
     cameraType: PropTypes.string,
   },
 
@@ -94,7 +94,7 @@ module.exports = React.createClass({
 
   takePicture () {
     this.refs.cam.capture((err, path) => {
-      this.props.tookPicture(path)
+      this.props.tookPhoto(path)
     })
   },
 
