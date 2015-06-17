@@ -33,6 +33,8 @@ function dropboxOauth () {
   //   setConfig('dropbox_access_token', access_token)
     // getSites()
   // })
+
+  // Temporary!
   setConfig('dropbox_access_token', 'eFEcGxgInLIAAAAAAAAWLBDbWdhsJ-_yQbmOo84eD6_GOuULZ62ZSIbydYYMzCLE')
   getSites()
 }
