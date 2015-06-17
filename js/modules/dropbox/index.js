@@ -47,18 +47,7 @@ function oauth (app_key, redirect_uri) {
 exports.uploadAndDelete = uploadAndDelete
 function uploadAndDelete (access_token, path, upload_path) {
   return upload({
-    // uri: `/${path}`,
-    // fileName: 'foo',
-    // mimeType: 'image/jpeg',
-    // files: [
-    //   {
-    //     filename: 'foo', // require, file name
-    //     filepath: path, // require, file absoluete path
-    //     filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
-    //   }
-    // ],
     file: {
-      filename: 'foo', // require, file name
       filepath: path, // require, file absoluete path
       filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
     },
@@ -66,7 +55,6 @@ function uploadAndDelete (access_token, path, upload_path) {
       'Authorization': `Bearer ${access_token}`
     },
     uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto' + upload_path,
-    // uploadUrl: 'http://10.0.1.243:3000/upload'
   }).then((res) => {
     console.log(res.status)
     RNFS.unlink(path)
