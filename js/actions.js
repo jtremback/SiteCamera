@@ -5,6 +5,7 @@ var { toImmutable } = require('nuclear-js')
 var moment = require('moment')
 const RNFS = require('react-native-fs')
 var config = require('../config.js')
+const { NativeModules } = require('react-native')
 
 exports.storeSites = storeSites
 function storeSites(sites) {
@@ -52,31 +53,36 @@ function selectSite (path) {
 
 exports.tookPhoto = tookPhoto
 function tookPhoto (path) {
-  const uploadUrl = encodeURI(flux.evaluate(getters.selectedSite).path +
-    `/${moment().format('MMMM Do YYYY')}` +
-    `/${moment().format('h.mm.ss.a')}.jpg`
+  const photo = {
+    path: path,
+    site: flux.evaluate(getters.selectedSite),
+    timestamp: Date.now()
+  }
+
+  flux.dispatch('TOOK_PHOTO', photo)
+}
+
+
+function uploadPhoto (photo) {
+  const uploadUrl = encodeURI(
+    photo.site +
+    `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
+    `/${moment(photo.get('timestamp')).format('h.mm.ss.a')}.jpg`
   )
 
   return dropbox.uploadPhoto(
     flux.evaluate(getters.dropboxAccessToken),
-    path,
+    photo.get('path'),
     uploadUrl
   ).then((res) => {
     if (res.status !== '200') {
       throw new Error('Transfer Failed: ' + JSON.stringify(res))
-    } else {
-      return RNFS.unlink(path)
-        .then(console.log)
-        .catch((err) => console.log(err))
     }
-  })
-  .catch(() => {
-    checkFailedUploads()
+    flux.dispatch('UPLOADED_PHOTO', photo)
   })
 }
 
-exports.checkFailedUploads = checkFailedUploads
-function checkFailedUploads () {
-  RNFS.readDir(RNFS.MainBundle)
-    .then(result => console.log(result))
+exports.uploadPhotos = uploadPhotos
+async function uploadPhotos () {
+  flux.evaluate(getters.toUpload).forEach(uploadPhoto)
 }

@@ -6,6 +6,7 @@
 
   - Take photo
     - Take photo
+    - Save path, time, site in asyncStorage
     - Upload photo
 
   - Upload photo
@@ -15,6 +16,6 @@
     - If failure
       - Check for unuploaded photos
 
-  - Check for un-uploaded photos
-    - Check fs
-    - Replace state in store
+() => {
+
+}
