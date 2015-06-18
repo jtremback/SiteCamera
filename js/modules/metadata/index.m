@@ -1,10 +1,10 @@
 #import "RCTBridgeModule.h"
 #import <ImageIO/ImageIO.h>
 
-@interface FileMetadata : NSObject <RCTBridgeModule>
+@interface ImageMetadata : NSObject <RCTBridgeModule>
 @end
 
-@implementation FileMetadata
+@implementation ImageMetadata
   RCT_EXPORT_MODULE();
 
   RCT_EXPORT_METHOD(getMetadata:(NSString *)path callback:(RCTResponseSenderBlock)callback)
