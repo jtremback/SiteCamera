@@ -26,7 +26,7 @@
 		45BB74ED1B2F62F7004723B0 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB74EC1B2F62E6004723B0 /* libRCTCamera.a */; };
 		45BB74F41B2F6359004723B0 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB74F31B2F6324004723B0 /* libRNFS.a */; };
 		45BB75071B2F6920004723B0 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB75061B2F690C004723B0 /* libRCTLinking.a */; };
-		45D250281B32362400B8E080 /* index.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D250271B32362400B8E080 /* index.m */; };
+		45D250371B32498300B8E080 /* index.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D250361B32498300B8E080 /* index.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
 
@@ -155,7 +155,7 @@
 		45BB74E71B2F62E6004723B0 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "node_modules/react-native-camera/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		45BB74EE1B2F6323004723B0 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		45BB75011B2F690C004723B0 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		45D250271B32362400B8E080 /* index.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = index.m; path = js/modules/metadata/index.m; sourceTree = "<group>"; };
+		45D250361B32498300B8E080 /* index.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = index.m; path = js/modules/metadata/index.m; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -267,7 +267,7 @@
 		13B07FAE1A68108700A75B9A /* Frame */ = {
 			isa = PBXGroup;
 			children = (
-				45D250271B32362400B8E080 /* index.m */,
+				45D250361B32498300B8E080 /* index.m */,
 				45BB74E51B2F628E004723B0 /* upload.m */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -627,7 +627,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				45BB74E61B2F628E004723B0 /* upload.m in Sources */,
-				45D250281B32362400B8E080 /* index.m in Sources */,
+				45D250371B32498300B8E080 /* index.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
