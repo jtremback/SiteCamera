@@ -18,9 +18,9 @@ flux.registerStores({
 })
 
 async function setPersistedState () {
-  const toUpload = await toUpload.getPersistedState()
+  const toUploadState = await toUpload.getPersistedState()
   flux.dispatch('SET_STATE', toImmutable({
-    toUpload: toUpload
+    toUpload: toUploadState
   }))
 
   return null

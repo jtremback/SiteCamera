@@ -1,3 +1,4 @@
+require('regenerator/runtime')
 var Frame = require('./js/main.js')
 var React = require('react-native')
 
