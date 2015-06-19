@@ -1,4 +1,3 @@
-'use strict';
 const { Reactor, toImmutable } = require('nuclear-js')
 
 const sites = require('./stores/sites.js')
