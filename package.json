@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node_modules/react-native/packager/packager.sh"
+    "start": "node_modules/react-native/packager/packager.sh",
+    "test-debug": "forever -c \"babel-node --debug-brk\" js/test"
   },
   "dependencies": {
     "es6-promisify": "^1.1.1",
@@ -18,6 +19,7 @@
     "babel-eslint": "^3.1.5",
     "eslint": "^0.21.2",
     "eslint-plugin-react": "^2.3.0",
+    "forever": "^0.14.1",
     "mock": "^0.1.1",
     "mock-require": "^1.0.5",
     "rn-ip-replace": "^1.4.0",

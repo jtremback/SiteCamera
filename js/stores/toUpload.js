@@ -17,9 +17,11 @@ let store = new Store({
 
 store.getPersistedState = async function () {
   const photos = await AsyncStorage.getItem('toUpload.photos')
-  return toImmutable({
-    photos: photos
+  const state = toImmutable({
+    photos: photos || {}
   })
+  debugger
+  return state
 }
 
 function tookPhoto (state, photo) {

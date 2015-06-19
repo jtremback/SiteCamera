@@ -1,2 +1,2 @@
-const test = require('tape')
+require('./stores.js')
 

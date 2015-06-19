@@ -1,14 +1,17 @@
 const mock = require('mock')
 const test = require('tape')
 
+let fakeStorage = {}
+
 const toUpload = mock(require.resolve('../stores/toUpload.js'), {
   'react-native': {
     AsyncStorage: {
-      getItem () {
-        console.log('getItem')
+      async getItem (key) {
+        return fakeStorage[key]
       },
-      setItem () {
-        console.log('setItem')
+      async setItem (key, item) {
+        fakeStorage[key] = item
+        return null
       }
     }
   }
@@ -34,7 +37,7 @@ test('sites', function (t) {
   t.end()
 })
 
-test('toUpload', async function (t) {
+test('toUpload', function (t) {
   const photo = {
     path: 'foo',
     timestamp: 3
@@ -42,7 +45,10 @@ test('toUpload', async function (t) {
 
   flux.dispatch('TOOK_PHOTO', photo)
   flux.reset()
-  await flux.setPersistedState()
-  const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
-  t.equals([photo], photosToUpload)
+  flux.setPersistedState().then(() => {
+    const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
+    t.equals([photo], photosToUpload)
+    console.log('fakeStorage', fakeStorage)
+    t.end()
+  })
 })
