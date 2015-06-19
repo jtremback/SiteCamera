@@ -9,13 +9,13 @@ let store = new Store({
   },
 
   initialize () {
-    this.on('INIT_STORES', (state, initState) => initState.toUpload)
+    this.on('SET_STATE', (state, newState) => newState.toUpload)
     this.on('TOOK_PHOTO', tookPhoto)
     this.on('UPLOADED_PHOTO', uploadedPhoto)
   }
 })
 
-store.getInitData = async function () {
+store.getPersistedState = async function () {
   const photos = await AsyncStorage.getItem('toUpload.photos')
   return toImmutable({
     photos: photos

@@ -1,32 +1,31 @@
 const test = require('tape')
-const Nuclear = require('nuclear-js')
-
-const sites = require('../stores/sites.js')
-const ui = require('../stores/ui.js')
-const config = require('../stores/config.js')
-
-let flux = new Nuclear.Reactor({
-  debug: true
-})
-
-flux.registerStores({
-  sites,
-  // ui,
-  config,
-})
+const flux = require('../flux.js')
 
 test('sites', function (t) {
-  const orig_sites = {
+  const origSites = {
     'Garden Shed': {
       path: 'Garden Shed',
       other: 'stuff'
     }
   }
 
-  flux.dispatch('REPLACE_SITES', orig_sites)
+  flux.dispatch('REPLACE_SITES', origSites)
 
   const sites = flux.evaluateToJS(['sites', 'sites'])
 
-  t.equals(sites, orig_sites)
+  t.equals(sites, origSites)
   t.end()
+})
+
+test('toUpload', async function (t) {
+  const photo = {
+    path: 'foo',
+    timestamp: 3
+  }
+
+  flux.dispatch('TOOK_PHOTO', photo)
+  flux.reset()
+  await flux.setPersistedState()
+  const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
+  t.equals([photo], photosToUpload)
 })

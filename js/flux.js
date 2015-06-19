@@ -18,13 +18,17 @@ flux.registerStores({
   config,
 })
 
-async function init () {
-  const toUpload = await toUpload.getInitData()
-  flux.dispatch('INIT_STORES', toImmutable({
+async function setPersistedState () {
+  const toUpload = await toUpload.getPersistedState()
+  flux.dispatch('SET_STATE', toImmutable({
     toUpload: toUpload
   }))
+
+  return null
 }
 
-init()
+setPersistedState()
+
+flux.setPersistedState = setPersistedState
 
 module.exports = flux
