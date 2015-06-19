@@ -1,5 +1,22 @@
+const mock = require('mock')
 const test = require('tape')
-const flux = require('../flux.js')
+
+const toUpload = mock(require.resolve('../stores/toUpload.js'), {
+  'react-native': {
+    AsyncStorage: {
+      getItem () {
+        console.log('getItem')
+      },
+      setItem () {
+        console.log('setItem')
+      }
+    }
+  }
+})
+
+const flux = mock(require.resolve('../flux.js'), {
+  [require.resolve('../stores/toUpload.js')]: toUpload
+})
 
 test('sites', function (t) {
   const origSites = {
