@@ -12,6 +12,7 @@
     "nuclear-js": "git://github.com/optimizely/nuclear-js.git",
     "query-string": "^2.2.0",
     "react-native": "0.6.0-rc",
+    "react-native-button": "^1.2.0",
     "react-native-camera": "jtremback/react-native-camera",
     "react-native-fs": "jtremback/react-native-fs",
     "regenerator": "^0.8.30"

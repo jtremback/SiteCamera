@@ -26,8 +26,6 @@ async function initStateAsync () {
   flux.observe(['toUpload'], (newState) => {
     AsyncStorage.setItem('toUpload', newState)
   })
-
-  return 'fuckington'
 }
 
 flux.initStateAsync = initStateAsync
