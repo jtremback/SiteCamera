@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh",
-    "test-debug": "forever -c \"babel-node --debug-brk\" js/test"
+    "test-debug": "forever -c \"babel-node --debug-brk\" js/test",
+    "test": "babel-node js/test"
   },
   "dependencies": {
     "es6-promisify": "^1.1.1",

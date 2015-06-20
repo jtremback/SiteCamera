@@ -1,4 +1,5 @@
 const { Reactor, toImmutable } = require('nuclear-js')
+const { AsyncStorage } = require('react-native')
 
 const sites = require('./stores/sites.js')
 const toUpload = require('./stores/toUpload.js')
@@ -17,17 +18,17 @@ flux.registerStores({
   config,
 })
 
-async function setPersistedState () {
-  const toUploadState = await toUpload.getPersistedState()
-  flux.dispatch('SET_STATE', toImmutable({
-    toUpload: toUploadState
-  }))
+async function initStateAsync () {
+  const oldState = await AsyncStorage.getItem('toUpload')
+  oldState = toImmutable(oldState || {})
+  flux.dispatch('SET_STATE_toUpload', oldState)
 
-  return null
+  flux.observe(['toUpload'], (newState) => {
+    AsyncStorage.setItem('toUpload', newState)
+  })
+
+  return 'fuckington'
 }
 
-setPersistedState()
-
-flux.setPersistedState = setPersistedState
-
+flux.initStateAsync = initStateAsync
 module.exports = flux

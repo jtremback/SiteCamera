@@ -3,7 +3,7 @@ const test = require('tape')
 
 let fakeStorage = {}
 
-const toUpload = mock(require.resolve('../stores/toUpload.js'), {
+const flux = mock(require.resolve('../flux.js'), {
   'react-native': {
     AsyncStorage: {
       async getItem (key) {
@@ -17,38 +17,39 @@ const toUpload = mock(require.resolve('../stores/toUpload.js'), {
   }
 })
 
-const flux = mock(require.resolve('../flux.js'), {
-  [require.resolve('../stores/toUpload.js')]: toUpload
-})
 
 test('sites', function (t) {
-  const origSites = {
-    'Garden Shed': {
-      path: 'Garden Shed',
-      other: 'stuff'
+  flux.initStateAsync().then(() => {
+    const origSites = {
+      'Garden Shed': {
+        path: 'Garden Shed',
+        other: 'stuff'
+      }
     }
-  }
 
-  flux.dispatch('REPLACE_SITES', origSites)
+    flux.dispatch('REPLACE_SITES', origSites)
 
-  const sites = flux.evaluateToJS(['sites', 'sites'])
+    const sites = flux.evaluateToJS(['sites', 'sites'])
 
-  t.equals(sites, origSites)
-  t.end()
+    t.equals(sites, origSites)
+    t.end()
+  }).catch((e) => { throw e })
 })
 
 test('toUpload', function (t) {
-  const photo = {
-    path: 'foo',
-    timestamp: 3
-  }
-
-  flux.dispatch('TOOK_PHOTO', photo)
   flux.reset()
-  flux.setPersistedState().then(() => {
-    const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
-    t.equals([photo], photosToUpload)
-    console.log('fakeStorage', fakeStorage)
-    t.end()
+  flux.initStateAsync().then(() => {
+    const photo = {
+      path: 'foo',
+      timestamp: 3
+    }
+
+    flux.dispatch('TOOK_PHOTO', photo)
+    flux.reset()
+    flux.initStateAsync().then(() => {
+      const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
+      t.deepEquals({ [photo.path]: photo}, photosToUpload)
+      t.end()
+    })
   })
 })

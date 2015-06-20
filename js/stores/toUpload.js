@@ -1,41 +1,19 @@
 const { Store, toImmutable } = require('nuclear-js')
-const { AsyncStorage } = require('react-native')
 
-let store = new Store({
-  getInitialState () {
-    return toImmutable({
-      photos: {}
-    })
-  },
-
+module.exports = new Store({
   initialize () {
-    this.on('SET_STATE', (state, newState) => newState.toUpload)
+    this.on('SET_STATE_toUpload', (state, newState) => {
+      return newState
+    })
     this.on('TOOK_PHOTO', tookPhoto)
     this.on('UPLOADED_PHOTO', uploadedPhoto)
   }
 })
 
-store.getPersistedState = async function () {
-  const photos = await AsyncStorage.getItem('toUpload.photos')
-  const state = toImmutable({
-    photos: photos || {}
-  })
-  debugger
-  return state
-}
-
 function tookPhoto (state, photo) {
-  const newState = state.setIn(['photos', photo.path], photo)
-
-  AsyncStorage.setItem('toUpload.photos', newState.toJS())
-  return newState
+  return state.setIn(['photos', photo.path], photo)
 }
 
 function uploadedPhoto (state, photo) {
-  const newState = state.deleteIn(['photos', photo.path])
-
-  AsyncStorage.setItem('toUpload.photos', newState.toJS())
-  return newState
+  return state.deleteIn(['photos', photo.path])
 }
-
-module.exports = store
