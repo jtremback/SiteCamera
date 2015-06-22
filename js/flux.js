@@ -17,12 +17,14 @@ flux.registerStores({
 })
 
 async function initState () {
-  const oldState = await AsyncStorage.getItem('toUpload')
-  oldState = toImmutable(oldState || {})
-  flux.dispatch('initialize toUpload store', JSON.parse(oldState))
+  let oldState = await AsyncStorage.getItem('toUpload')
+  oldState = JSON.parse(oldState || '{}')
+  oldState = toImmutable(oldState)
+
+  flux.dispatch('initialize toUpload store', oldState)
 
   flux.observe(['toUpload'], (newState) => {
-    AsyncStorage.setItem('toUpload', newState.toJSON())
+    AsyncStorage.setItem('toUpload', JSON.stringify(newState.toJS() || {}))
   })
 }
 

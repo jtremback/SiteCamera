@@ -82,7 +82,7 @@ const actions = mock(require.resolve('../actions.js'), {
 
 test('successful upload', function (t) {
   const path = 'foo'
-  fakeFS['foo'] = true
+  fakeFS[path] = true
   fakeDropboxRes = '200'
 
   actions.tookPhoto(path)
@@ -96,7 +96,7 @@ test('successful upload', function (t) {
 
 test('unsuccessful upload', function (t) {
   const path = 'foo'
-  fakeFS['foo'] = true
+  fakeFS[path] = true
   fakeDropboxRes = '404'
 
   actions.tookPhoto(path)
@@ -107,9 +107,26 @@ test('unsuccessful upload', function (t) {
       path: 'foo',
       site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
       timestamp: 0 }})
-
     t.end()
   })
 })
 
+test('successful reupload', function (t) {
+  const path = 'foo'
+  fakeFS[path] = true
+  fakeDropboxRes = '200'
 
+  flux.__state.setIn(['toUpload', 'photos'], { foo: {
+    path: 'foo',
+    site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
+    timestamp: 0 }})
+
+  actions.uploadPhotos()
+  t.equal(flux.evaluate(getters.uploadingPhotos), true)
+  setTimeout(() => {
+    t.equal(flux.evaluate(getters.uploadingPhotos), false)
+    t.equal(fakeFS[path], 'deleted')
+    t.equal(fakeDropbox[path], 'Vallejo%20Gymnasium/December%2031st%201969/4.00.00.pm.jpg')
+    t.end()
+  }, 0)
+})
