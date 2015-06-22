@@ -5,17 +5,16 @@ var { toImmutable } = require('nuclear-js')
 var moment = require('moment')
 const RNFS = require('react-native-fs')
 var config = require('../config.js')
-const { NativeModules } = require('react-native')
 
 exports.storeSites = storeSites
 function storeSites(sites) {
-  flux.dispatch('REPLACE_SITES', toImmutable(sites));
+  flux.dispatch('set sites', toImmutable(sites));
 }
 
 exports.getSites = getSites
 function getSites () {
   const access_token = flux.evaluate(getters.dropboxAccessToken)
-  return dropbox.getFolders(access_token)
+  dropbox.getFolders(access_token)
   .then(folders => {
     return folders.reduce((acc, item) => {
       const path = item.path
@@ -43,46 +42,52 @@ function dropboxOauth () {
 
 exports.setConfig = setConfig
 function setConfig (k, v) {
-  flux.dispatch('SET_CONFIG', [k, toImmutable(v)])
+  flux.dispatch('set config property', [k, toImmutable(v)])
 }
 
 exports.selectSite = selectSite
 function selectSite (path) {
-  flux.dispatch('SELECT_SITE', path)
+  flux.dispatch('select current site', path)
 }
 
 exports.tookPhoto = tookPhoto
 function tookPhoto (path) {
-  const photo = {
+  const photo = toImmutable({
     path: path,
     site: flux.evaluate(getters.selectedSite),
     timestamp: Date.now()
-  }
+  })
 
-  flux.dispatch('TOOK_PHOTO', photo)
+  flux.dispatch('took photo', photo)
+  uploadPhoto(photo)
 }
 
-
-function uploadPhoto (photo) {
+async function uploadPhoto (photo) {
   const uploadUrl = encodeURI(
-    photo.site +
+    photo.getIn(['site', 'name']) +
     `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
     `/${moment(photo.get('timestamp')).format('h.mm.ss.a')}.jpg`
   )
 
-  return dropbox.uploadPhoto(
+  const res = await dropbox.uploadPhoto(
     flux.evaluate(getters.dropboxAccessToken),
     photo.get('path'),
     uploadUrl
-  ).then((res) => {
-    if (res.status !== '200') {
-      throw new Error('Transfer Failed: ' + JSON.stringify(res))
-    }
-    flux.dispatch('UPLOADED_PHOTO', photo)
-  })
+  )
+
+  if (res.status === '200') {
+    flux.dispatch('uploaded photo', photo)
+    RNFS.unlink(photo.get('path'))
+  }
 }
 
 exports.uploadPhotos = uploadPhotos
 async function uploadPhotos () {
-  flux.evaluate(getters.toUpload).forEach(uploadPhoto)
+  const promises = flux.evaluate(getters.photosToUpload).map(photo => {
+    return uploadPhoto(photo)
+  })
+
+  flux.dispatch('started uploading photos')
+  await Promise.all(promises)
+  flux.dispatch('finished uploading photos')
 }

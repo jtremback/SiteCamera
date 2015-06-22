@@ -2,18 +2,20 @@ const { Store, toImmutable } = require('nuclear-js')
 
 module.exports = new Store({
   initialize () {
-    this.on('SET_STATE_toUpload', (state, newState) => {
+    this.on('initialize toUpload store', (state, newState) => {
       return newState
     })
-    this.on('TOOK_PHOTO', tookPhoto)
-    this.on('UPLOADED_PHOTO', uploadedPhoto)
+    this.on('started uploading photos', (state) => state.set('uploadingPhotos', true))
+    this.on('finished uploading photos', (state) => state.set('uploadingPhotos', false))
+    this.on('took photo', tookPhoto)
+    this.on('uploaded photo', uploadedPhoto)
   }
 })
 
 function tookPhoto (state, photo) {
-  return state.setIn(['photos', photo.path], photo)
+  return state.setIn(['photos', photo.get('path')], photo)
 }
 
 function uploadedPhoto (state, photo) {
-  return state.deleteIn(['photos', photo.path])
+  return state.deleteIn(['photos', photo.get('path')])
 }

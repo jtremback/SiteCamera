@@ -94,20 +94,13 @@ module.exports = React.createClass({
 
   takePicture () {
     this.refs.cam.capture((err, path) => {
-      this.props.tookPhoto(path)
+      if (!err) {
+        this.props.tookPhoto(path)
+      }
     })
   },
 
   render () {
-    function jankyMinWidth (input) {
-      input = input + ''
-      if (input.length === 1 ) {
-        return ' ' + input + ' '
-      } else {
-        return input
-      }
-    }
-
     return (
       <View style={styles.container}>
         <View style={styles.statusBar} />

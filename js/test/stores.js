@@ -19,7 +19,7 @@ const flux = mock(require.resolve('../flux.js'), {
 
 
 test('sites', function (t) {
-  flux.initStateAsync().then(() => {
+  flux.initState().then(() => {
     const origSites = {
       'Garden Shed': {
         path: 'Garden Shed',
@@ -27,7 +27,7 @@ test('sites', function (t) {
       }
     }
 
-    flux.dispatch('REPLACE_SITES', origSites)
+    flux.dispatch('set sites', origSites)
 
     const sites = flux.evaluateToJS(['sites', 'sites'])
 
@@ -38,15 +38,15 @@ test('sites', function (t) {
 
 test('toUpload', function (t) {
   flux.reset()
-  flux.initStateAsync().then(() => {
+  flux.initState().then(() => {
     const photo = {
       path: 'foo',
       timestamp: 3
     }
 
-    flux.dispatch('TOOK_PHOTO', photo)
+    flux.dispatch('took photo', photo)
     flux.reset()
-    flux.initStateAsync().then(() => {
+    flux.initState().then(() => {
       const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
       t.deepEquals({ [photo.path]: photo}, photosToUpload)
       t.end()

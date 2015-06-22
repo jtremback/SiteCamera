@@ -68,19 +68,22 @@ module.exports = React.createClass({
 
     // what happens when you press the photosToUpload popup
     uploadPhotosPressed: PropTypes.function,
+
+    // Are there currently photos being uploaded?
+    uploadingPhotos: PropTypes.boolean
   },
 
   getInitialState () {
     return {
       dataSource: new ListView.DataSource({
-        rowHasChanged: (old, next) => old.guid !== next.guid
+        rowHasChanged: (old, next) => old.path !== next.path
       })
     }
   },
 
   componentWillReceiveProps (nextProps) {
     this.setState(state => {
-      return { dataSource: state.dataSource.cloneWithRows(nextProps.listData) }
+      return { dataSource: state.dataSource.cloneWithRows(nextProps.listData.toJS()) }
     })
   },
 
@@ -110,16 +113,24 @@ module.exports = React.createClass({
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}/>
 
+      { this.props.photosToUpload && this.props.photosToUpload > 0 ?
         <View style={styles.notice}>
           <View style={styles.innerNotice}>
             <Text style={styles.noticeText}>
-              {this.props.photosToUpload}5 photos failed to upload.
+              {this.props.photosToUpload} photos failed to upload.
             </Text>
-            <Button>
+          { this.props.uploadingPhotos ?
+            <Button onPress={this.props.uploadPhotosPressed}>
               Retry
             </Button>
+          :
+            null
+          }
           </View>
         </View>
+      :
+        null
+      }
       </View>
     )
   }

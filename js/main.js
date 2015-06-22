@@ -1,4 +1,5 @@
 var React = require('react-native')
+require('./flux.js').initState() // need to populate stores
 var actions = require('./actions.js')
 var MainNavigator = require('./components/MainNavigator.js')
 var React = require('react-native')

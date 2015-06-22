@@ -3,7 +3,6 @@ const { AsyncStorage } = require('react-native')
 
 const sites = require('./stores/sites.js')
 const toUpload = require('./stores/toUpload.js')
-const ui = require('./stores/ui.js')
 const config = require('./stores/config.js')
 
 
@@ -14,19 +13,18 @@ let flux = new Reactor({
 flux.registerStores({
   sites,
   toUpload,
-  // ui,
   config,
 })
 
-async function initStateAsync () {
+async function initState () {
   const oldState = await AsyncStorage.getItem('toUpload')
   oldState = toImmutable(oldState || {})
-  flux.dispatch('SET_STATE_toUpload', oldState)
+  flux.dispatch('initialize toUpload store', JSON.parse(oldState))
 
   flux.observe(['toUpload'], (newState) => {
-    AsyncStorage.setItem('toUpload', newState)
+    AsyncStorage.setItem('toUpload', newState.toJSON())
   })
 }
 
-flux.initStateAsync = initStateAsync
+flux.initState = initState
 module.exports = flux

@@ -25,6 +25,8 @@ const CameraScreenContainer = React.createClass({
   }
 })
 
+
+
 const SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
   propTypes: {
@@ -34,7 +36,9 @@ const SiteListScreenContainer = React.createClass({
 
   getDataBindings () {
     return {
-      sites: getters.sites
+      sites: getters.sites,
+      photosToUpload: getters.photosToUpload,
+      uploadingPhotos: getters.uploadingPhotos
     }
   },
 
@@ -46,15 +50,23 @@ const SiteListScreenContainer = React.createClass({
     });
   },
 
+  uploadPhotosPressed () {
+    console.log('arf')
+  },
+
   render () {
     return (
       <SiteListScreen
         rowPressed={this.rowPressed}
         listData={this.state.sites}
+        uploadPhotosPressed={actions.uploadPhotos}
+        uploadingPhotos={this.state.uploadingPhotos}
       />
     )
   }
 })
+
+
 
 module.exports = React.createClass({
   displayName: 'MainNavigator',

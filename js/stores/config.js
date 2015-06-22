@@ -9,7 +9,7 @@ module.exports = new Nuclear.Store({
   },
 
   initialize () {
-    this.on('SET_CONFIG', function (state, [k, v]) {
+    this.on('set config property', function (state, [k, v]) {
       return state.set(k, v)
     })
   }

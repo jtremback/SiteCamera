@@ -53,7 +53,7 @@ function uploadPhoto (access_token, path, upload_path) {
     headers: {
       'Authorization': `Bearer ${access_token}`
     },
-    uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto' + upload_path,
+    uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto/' + upload_path,
   })
 }
 
