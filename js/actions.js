@@ -75,7 +75,7 @@ async function uploadPhoto (photo) {
     uploadUrl
   )
 
-  if (res.status === '200') {
+  if (res.status === 200) {
     flux.dispatch('uploaded photo', photo)
     RNFS.unlink(photo.get('path'))
   }
@@ -83,7 +83,7 @@ async function uploadPhoto (photo) {
 
 exports.uploadPhotos = uploadPhotos
 async function uploadPhotos () {
-  const promises = flux.evaluate(getters.photosToUpload).map(photo => {
+  const promises = flux.evaluate(getters.photosToUpload).toArray().map(photo => {
     return uploadPhoto(photo)
   })
 

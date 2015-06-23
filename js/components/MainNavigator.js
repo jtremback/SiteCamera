@@ -60,6 +60,7 @@ const SiteListScreenContainer = React.createClass({
         rowPressed={this.rowPressed}
         listData={this.state.sites}
         uploadPhotosPressed={actions.uploadPhotos}
+        photosToUpload={this.state.photosToUpload}
         uploadingPhotos={this.state.uploadingPhotos}
       />
     )

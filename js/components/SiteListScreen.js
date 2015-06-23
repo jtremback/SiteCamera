@@ -6,6 +6,7 @@ const {
   TouchableHighlight,
   ListView,
   Text,
+  ActivityIndicatorIOS,
   PropTypes,
 } = React
 const Button = require('react-native-button')
@@ -50,6 +51,10 @@ const styles = StyleSheet.create({
   noticeText: {
     color: colors.brand,
     paddingRight: 20
+  },
+
+  ActivityIndicatorIOS: {
+    width: 20,
   }
 })
 
@@ -113,18 +118,21 @@ module.exports = React.createClass({
           dataSource={this.state.dataSource}
           renderRow={this.renderRow}/>
 
-      { this.props.photosToUpload && this.props.photosToUpload > 0 ?
+      { this.props.photosToUpload && this.props.photosToUpload.size > 0 ?
         <View style={styles.notice}>
           <View style={styles.innerNotice}>
             <Text style={styles.noticeText}>
-              {this.props.photosToUpload} photos failed to upload.
+              {this.props.photosToUpload.size} photos did not upload.
             </Text>
           { this.props.uploadingPhotos ?
+            <ActivityIndicatorIOS
+              style={styles.ActivityIndicatorIOS}
+              size='small'
+              color={colors.brand}/>
+          :
             <Button onPress={this.props.uploadPhotosPressed}>
               Retry
             </Button>
-          :
-            null
           }
           </View>
         </View>
