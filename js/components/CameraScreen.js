@@ -88,7 +88,7 @@ module.exports = React.createClass({
 
   getDefaultProps () {
     return {
-      cameraType: 'front'
+      cameraType: 'back'
     }
   },
 

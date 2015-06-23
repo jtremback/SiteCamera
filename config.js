@@ -1,4 +1,4 @@
 module.exports = {
-  app_key: 'k6gh5unkioe9m73',
-  redirect_url: 'sitecamera://dropboxoauth'
+  app_key: 'xmupf3qz7bip19u',
+  redirect_url: 'framesystems://dropboxoauth'
 }
