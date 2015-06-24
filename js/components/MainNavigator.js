@@ -148,7 +148,7 @@ module.exports = React.createClass({
           component: SiteListScreenContainer,
           // leftButtonTitle: 'Settings',
           // onLeftButtonPress: this.onLeftButtonPress,
-          rightButtonTitle: 'New',
+          rightButtonIcon: require('image!NavBarButtonPlus'),
           onRightButtonPress: this.onRightButtonPress,
           passProps: {
             getNavigator: this.getNavigator
