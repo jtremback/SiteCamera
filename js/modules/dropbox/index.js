@@ -45,6 +45,19 @@ function oauth (app_key, redirect_uri) {
 
 exports.uploadPhoto = uploadPhoto
 function uploadPhoto (access_token, path, upload_path) {
+  // if (Math.random() > .5) {
+  //   return upload({
+  //     file: {
+  //       filepath: path, // require, file absoluete path
+  //       filetype: 'image/jpeg', // options, if none, will get mimetype from `filepath` extension
+  //     },
+  //     headers: {
+  //       'Authorization': `Bearer ${access_token}3`
+  //     },
+  //     uploadUrl: 'https://api-content.dropbox.com/1/files_put/auto/' + upload_path,
+  //   })
+  // }
+
   return upload({
     file: {
       filepath: path, // require, file absoluete path

@@ -38,7 +38,7 @@ const SiteListScreenContainer = React.createClass({
     return {
       sites: getters.sites,
       photosToUpload: getters.photosToUpload,
-      uploadingPhotos: getters.uploadingPhotos
+      photosCurrentlyUploading: getters.photosCurrentlyUploading
     }
   },
 
@@ -50,10 +50,6 @@ const SiteListScreenContainer = React.createClass({
     });
   },
 
-  uploadPhotosPressed () {
-    console.log('arf')
-  },
-
   render () {
     return (
       <SiteListScreen
@@ -61,7 +57,7 @@ const SiteListScreenContainer = React.createClass({
         listData={this.state.sites}
         uploadPhotosPressed={actions.uploadPhotos}
         photosToUpload={this.state.photosToUpload}
-        uploadingPhotos={this.state.uploadingPhotos}
+        photosCurrentlyUploading={this.state.photosCurrentlyUploading}
       />
     )
   }

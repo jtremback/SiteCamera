@@ -134,15 +134,18 @@ test('successful reupload', function (t) {
   fakeFS[path] = true
   fakeDropboxRes = 200
 
-  flux.__state.setIn(['toUpload', 'photos'], { foo: {
+  flux.__state.setIn(['photos', 'toUpload'], { foo: {
     path: 'foo',
     site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
     timestamp: 0 }})
 
   actions.uploadPhotos()
-  t.equal(flux.evaluate(getters.uploadingPhotos), true)
+  t.deepEqual(flux.evaluate(getters.photosCurrentlyUploading).toJS(), { foo: {
+    path: 'foo',
+    site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
+    timestamp: 0 }})
   setTimeout(() => {
-    t.equal(flux.evaluate(getters.uploadingPhotos), false)
+    t.equal(flux.evaluate(getters.photosCurrentlyUploading).size, 0)
     t.equal(fakeFS[path], 'deleted')
     t.equal(fakeDropbox[path], 'Vallejo%20Gymnasium/December%2031st%201969/4.00.00.pm.jpg')
     t.end()

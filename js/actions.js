@@ -62,6 +62,7 @@ function tookPhoto (path) {
 }
 
 async function uploadPhoto (photo) {
+  flux.dispatch('started photo upload', photo)
   const uploadUrl = encodeURI(
     photo.getIn(['site', 'name']) +
     `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
@@ -75,8 +76,10 @@ async function uploadPhoto (photo) {
   )
 
   if (res.status === 200) {
-    flux.dispatch('uploaded photo', photo)
+    flux.dispatch('successful photo upload', photo)
     RNFS.unlink(photo.get('path'))
+  } else {
+    flux.dispatch('failed photo upload', photo)
   }
 }
 
@@ -86,7 +89,5 @@ async function uploadPhotos () {
     return uploadPhoto(photo)
   })
 
-  flux.dispatch('started uploading photos')
   await Promise.all(promises)
-  flux.dispatch('finished uploading photos')
 }

@@ -9,8 +9,8 @@ exports.sites = [
   (sites) => sites
 ]
 
-exports.photosToUpload = ['toUpload', 'photos']
+exports.photosToUpload = ['photos', 'toUpload']
 
-exports.uploadingPhotos = ['toUpload', 'uploadingPhotos']
+exports.photosCurrentlyUploading = ['photos', 'currentlyUploading']
 
 exports.dropboxAccessToken = ['config', 'dropbox_access_token']

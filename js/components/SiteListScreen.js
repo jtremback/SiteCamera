@@ -75,7 +75,7 @@ module.exports = React.createClass({
     uploadPhotosPressed: PropTypes.function,
 
     // Are there currently photos being uploaded?
-    uploadingPhotos: PropTypes.boolean
+    photosCurrentlyUploading: PropTypes.boolean
   },
 
   getInitialState () {
@@ -112,29 +112,38 @@ module.exports = React.createClass({
   },
 
   render () {
+    const photosToUpload = this.props.photosToUpload && this.props.photosToUpload.size > 0
+    const photosCurrentlyUploading = this.props.photosCurrentlyUploading && this.props.photosCurrentlyUploading.size > 0
     return (
       <View style={styles.container}>
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderRow}/>
+          renderRow={this.renderRow}
+        />
 
-      { this.props.photosToUpload && this.props.photosToUpload.size > 0 ?
+      { photosToUpload ?
         <View style={styles.notice}>
-          <View style={styles.innerNotice}>
-            <Text style={styles.noticeText}>
-              {this.props.photosToUpload.size} photos did not upload.
-            </Text>
-          { this.props.uploadingPhotos ?
-            <ActivityIndicatorIOS
-              style={styles.ActivityIndicatorIOS}
-              size='small'
-              color={colors.brand}/>
+          { photosCurrentlyUploading ?
+            <View style={styles.innerNotice}>
+              <Text style={styles.noticeText}>
+                {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } to upload.
+              </Text>
+              <ActivityIndicatorIOS
+                style={styles.ActivityIndicatorIOS}
+                size='small'
+                color={colors.brand}
+              />
+            </View>
           :
-            <Button onPress={this.props.uploadPhotosPressed}>
-              Retry
-            </Button>
+            <View style={styles.innerNotice}>
+              <Text style={styles.noticeText}>
+                {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } did not upload.
+              </Text>
+              <Button onPress={this.props.uploadPhotosPressed}>
+                Retry
+              </Button>
+            </View>
           }
-          </View>
         </View>
       :
         null

@@ -2,7 +2,7 @@ const { Reactor, toImmutable } = require('nuclear-js')
 const { AsyncStorage } = require('react-native')
 
 const sites = require('./stores/sites.js')
-const toUpload = require('./stores/toUpload.js')
+const photos = require('./stores/photos.js')
 const config = require('./stores/config.js')
 
 
@@ -12,19 +12,19 @@ let flux = new Reactor({
 
 flux.registerStores({
   sites,
-  toUpload,
+  photos,
   config,
 })
 
 async function initState () {
-  let oldState = await AsyncStorage.getItem('toUpload')
-  oldState = JSON.parse(oldState || '{}')
-  oldState = toImmutable(oldState)
+  let storedState = await AsyncStorage.getItem('photosToUpload')
+  storedState = JSON.parse(storedState || '{}')
+  storedState = toImmutable(storedState)
 
-  flux.dispatch('initialize toUpload store', oldState)
+  flux.dispatch('initialize photos store', storedState)
 
-  flux.observe(['toUpload'], (newState) => {
-    AsyncStorage.setItem('toUpload', JSON.stringify(newState.toJS() || {}))
+  flux.observe(['photos', 'toUpload'], (newState) => {
+    AsyncStorage.setItem('photosToUpload', JSON.stringify(newState.toJS() || {}))
   })
 }
 
