@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   innerNotice: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.setAlpha(colors.black, 0.85),
+    backgroundColor: colors.softBlack,
     paddingRight: 20,
     paddingLeft: 20
   },

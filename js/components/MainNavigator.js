@@ -2,17 +2,21 @@ var flux = require('../flux.js')
 var getters = require('../getters.js')
 var actions = require('../actions.js')
 var React = require('react-native')
-var { NavigatorIOS, PropTypes } = React
+var { NavigatorIOS, PropTypes, Text } = React
 var CameraScreen = require('./CameraScreen.js')
 var SiteListScreen = require('./SiteListScreen.js')
+var SettingsScreen = require('./SettingsScreen.js')
+var AddSiteScreen = require('./AddSiteScreen.js')
 
 var colors = require('../styles/colors.js')
 
 var styles = React.StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   }
 })
+
+
 
 const CameraScreenContainer = React.createClass({
   displayName: 'CameraScreenContainer',
@@ -30,9 +34,14 @@ const CameraScreenContainer = React.createClass({
 const SiteListScreenContainer = React.createClass({
   displayName: 'SiteListScreenContainer',
   propTypes: {
-    navigator: PropTypes.function,
+    navigator: PropTypes.object,
+    getNavigator: PropTypes.function
   },
   mixins: [flux.ReactMixin],
+
+  componentWillMount () {
+    this.props.getNavigator(this.props.navigator)
+  },
 
   getDataBindings () {
     return {
@@ -65,8 +74,69 @@ const SiteListScreenContainer = React.createClass({
 
 
 
+const AddSiteScreenContainer = React.createClass({
+  displayName: 'AddSiteScreenContainer',
+  propTypes: {
+    navigator: PropTypes.object,
+  },
+  mixins: [flux.ReactMixin],
+  getDataBindings () {
+    return {
+      sites: getters.sites,
+      photosToUpload: getters.photosToUpload,
+      photosCurrentlyUploading: getters.photosCurrentlyUploading
+    }
+  },
+
+  render () {
+    return <AddSiteScreen />
+  }
+})
+
+
+
+const SettingsScreenContainer = React.createClass({
+  displayName: 'SettingsScreenContainer',
+  propTypes: {
+    navigator: PropTypes.object,
+  },
+  mixins: [flux.ReactMixin],
+  getDataBindings () {
+    return {
+      sites: getters.sites,
+      photosToUpload: getters.photosToUpload,
+      photosCurrentlyUploading: getters.photosCurrentlyUploading
+    }
+  },
+
+  render () {
+    return <SettingsScreen />
+  }
+})
+
+
+
 module.exports = React.createClass({
   displayName: 'MainNavigator',
+
+  getNavigator (navigator) {
+    this.navigator = navigator
+  },
+
+  onLeftButtonPress () {
+    this.navigator.push({
+      title: 'Settings',
+      component: SettingsScreenContainer,
+    })
+  },
+
+  onRightButtonPress () {
+    this.navigator.push({
+      title: 'Add Site',
+      component: AddSiteScreenContainer,
+    })
+  },
+
   render () {
     return (
       <NavigatorIOS
@@ -76,7 +146,13 @@ module.exports = React.createClass({
         initialRoute={{
           title: 'Job Sites',
           component: SiteListScreenContainer,
-          backButtonTitle: '',
+          // leftButtonTitle: 'Settings',
+          // onLeftButtonPress: this.onLeftButtonPress,
+          rightButtonTitle: 'New',
+          onRightButtonPress: this.onRightButtonPress,
+          passProps: {
+            getNavigator: this.getNavigator
+          }
         }}
       />
     )
