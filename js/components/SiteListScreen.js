@@ -81,7 +81,7 @@ module.exports = React.createClass({
   getInitialState () {
     return {
       dataSource: new ListView.DataSource({
-        rowHasChanged: (old, next) => old.path !== next.path
+        rowHasChanged: (old, next) => old !== next
       })
     }
   },

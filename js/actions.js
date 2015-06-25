@@ -17,9 +17,8 @@ function getSites () {
   dropbox.getFolders(access_token)
   .then(folders => {
     return folders.reduce((acc, item) => {
-      const path = item.path
-      const name = path.slice(1)
-      acc[name] = { name, path }
+      const name = item.path.slice(1)
+      acc[name] = { name }
       return acc
     }, {})
   })
