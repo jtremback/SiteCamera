@@ -79,17 +79,26 @@ const AddSiteScreenContainer = React.createClass({
   propTypes: {
     navigator: PropTypes.object,
   },
-  mixins: [flux.ReactMixin],
-  getDataBindings () {
-    return {
-      sites: getters.sites,
-      photosToUpload: getters.photosToUpload,
-      photosCurrentlyUploading: getters.photosCurrentlyUploading
-    }
+  // mixins: [flux.ReactMixin],
+  // getDataBindings () {
+  //   return {
+  //     sites: getters.sites,
+  //     photosToUpload: getters.photosToUpload,
+  //     photosCurrentlyUploading: getters.photosCurrentlyUploading
+  //   }
+  // },
+
+  addSite (path) {
+    actions.addSite(path)
+    this.props.navigator.pop()
   },
 
   render () {
-    return <AddSiteScreen />
+    return (
+      <AddSiteScreen
+        addSite={this.addSite}
+      />
+    )
   }
 })
 

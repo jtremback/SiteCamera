@@ -41,6 +41,12 @@ const styles = StyleSheet.create({
 
 module.exports = React.createClass({
   displayName: 'AddSiteScreen',
+  propTypes: {
+    addSite: PropTypes.function
+  },
+  addSitePressed () {
+    this.props.addSite(this.state.input)
+  },
   render () {
     return (
       <View style={styles.container}>
@@ -51,6 +57,7 @@ module.exports = React.createClass({
           onChangeText={(text) => this.setState({ input: text })}
         />
         <TouchableHighlight style={styles.button}
+          onPress={this.addSitePressed}
           underlayColor={colors.brand}
         >
           <Text style={styles.buttonText}>Save</Text>

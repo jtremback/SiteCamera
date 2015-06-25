@@ -91,3 +91,17 @@ async function uploadPhotos () {
 
   await Promise.all(promises)
 }
+
+exports.addSite = addSite
+async function addSite (path) {
+  const res = await dropbox.addFolder(
+    flux.evaluate(getters.dropboxAccessToken),
+    path
+  )
+
+  if (res.status === 200) {
+    flux.dispatch('successful add site', path)
+  } else {
+    flux.dispatch('failed add site', path)
+  }
+}

@@ -82,3 +82,17 @@ function getFolders (access_token) {
     return json.contents
   })
 }
+
+exports.addFolder = addFolder
+function addFolder (access_token, path) {
+  return fetch(`https://api.dropbox.com/1/fileops/create_folder` +
+  `?root=auto` + `&path=${path}`, {
+      headers: {
+        'Authorization': `Bearer ${access_token}`
+      }
+  })
+  .then(res => res.json())
+  .then(function(json) {
+    return json.contents
+  })
+}
