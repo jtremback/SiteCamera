@@ -104,4 +104,6 @@ async function addSite (path) {
   } else {
     flux.dispatch('failed add site', path)
   }
+
+  getSites()
 }

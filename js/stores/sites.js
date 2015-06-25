@@ -14,7 +14,7 @@ module.exports = new Nuclear.Store({
     // }
     return toImmutable({
       selected: null,
-      sites: []
+      sites: {}
     })
   },
 

@@ -91,8 +91,4 @@ function addFolder (access_token, path) {
         'Authorization': `Bearer ${access_token}`
       }
   })
-  .then(res => res.json())
-  .then(function(json) {
-    return json.contents
-  })
 }
