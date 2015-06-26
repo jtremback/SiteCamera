@@ -16,17 +16,19 @@ flux.registerStores({
   config,
 })
 
-async function initState () {
-  let storedState = await AsyncStorage.getItem('photosToUpload')
+async function initPersistence (keypath) {
+  const identifier = keypath.join('.')
+
+  let storedState = await AsyncStorage.getItem(identifier)
   storedState = JSON.parse(storedState || '{}')
   storedState = toImmutable(storedState)
 
-  flux.dispatch('initialize photos store', storedState)
+  flux.dispatch(`initialize ${identifier}`, storedState)
 
-  flux.observe(['photos', 'toUpload'], (newState) => {
-    AsyncStorage.setItem('photosToUpload', JSON.stringify(newState.toJS() || {}))
+  flux.observe(keypath, (newState) => {
+    AsyncStorage.setItem(identifier, JSON.stringify(newState.toJS() || {}))
   })
 }
 
-flux.initState = initState
+flux.initPersistence = initPersistence
 module.exports = flux

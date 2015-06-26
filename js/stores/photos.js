@@ -28,12 +28,10 @@ function startedUpload (state, photo) {
 function successfulUpload (state, photo) {
   return state
     .deleteIn(['currentlyUploading', photo.get('path')])
-    .deleteIn(['failedUploads', photo.get('path')])
     .deleteIn(['toUpload', photo.get('path')])
 }
 
 function failedUpload (state, photo) {
   return state
     .deleteIn(['currentlyUploading', photo.get('path')])
-    .setIn(['failedUploads', photo.get('path')], photo)
 }

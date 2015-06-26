@@ -1,9 +1,19 @@
-var React = require('react-native')
-require('./flux.js').initState() // need to populate stores
-var actions = require('./actions.js')
-var MainNavigator = require('./components/MainNavigator.js')
-var React = require('react-native')
+const React = require('react-native')
+const flux = require('./flux.js')
+const actions = require('./actions.js')
+const getters = require('./getters.js')
+const MainNavigator = require('./components/MainNavigator.js')
+const React = require('react-native')
 const { StatusBarIOS } = React
+const uuid = require('node-uuid')
+
+flux.initPersistence(['photos', 'toUpload'])
+flux.initPersistence(['config', 'deviceId']).then(() => {
+  if (!flux.evaluate(getters.deviceId)) {
+    flux.dispatch('set device id', uuid.v4())
+  }
+})
+
 
 // async function showAppleStockPriceAsync() {
 //   let url = 'http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL';
