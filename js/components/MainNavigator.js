@@ -88,8 +88,8 @@ const AddSiteScreenContainer = React.createClass({
   //   }
   // },
 
-  addSite (path) {
-    actions.addSite(path)
+  addSite (name) {
+    actions.addSite(name)
     this.props.navigator.pop()
   },
 

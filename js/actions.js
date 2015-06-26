@@ -27,15 +27,15 @@ function getSites () {
 
 exports.dropboxOauth = dropboxOauth
 function dropboxOauth () {
-  // dropbox.oauth(config.app_key, config.redirect_url)
-  // .then((access_token) => {
-  //   setConfig('dropbox_access_token', access_token)
-  //   getSites()
-  // })
+  dropbox.oauth(config.app_key, config.redirect_url)
+  .then((access_token) => {
+    setConfig('dropbox_access_token', access_token)
+    getSites()
+  })
 
   // Temporary!
-  setConfig('dropbox_access_token', 'eFEcGxgInLIAAAAAAAAWLBDbWdhsJ-_yQbmOo84eD6_GOuULZ62ZSIbydYYMzCLE')
-  getSites()
+  // setConfig('dropbox_access_token', 'eFEcGxgInLIAAAAAAAAWLBDbWdhsJ-_yQbmOo84eD6_GOuULZ62ZSIbydYYMzCLE')
+  // getSites()
 }
 
 exports.setConfig = setConfig
@@ -92,17 +92,6 @@ async function uploadPhotos () {
 }
 
 exports.addSite = addSite
-async function addSite (path) {
-  const res = await dropbox.addFolder(
-    flux.evaluate(getters.dropboxAccessToken),
-    path
-  )
-
-  if (res.status === 200) {
-    flux.dispatch('successful add site', path)
-  } else {
-    flux.dispatch('failed add site', path)
-  }
-
-  getSites()
+async function addSite (name) {
+  flux.dispatch('add site', name)
 }

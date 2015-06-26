@@ -4,6 +4,7 @@
 
 # Xcode
 #
+*.jsbundle
 build/
 *.pbxuser
 !default.pbxuser
