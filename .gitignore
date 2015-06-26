@@ -28,4 +28,4 @@ project.xcworkspace
 node_modules/
 npm-debug.log
 
-iOS/main.jsbundle
+*/iOS/main.jsbundle
