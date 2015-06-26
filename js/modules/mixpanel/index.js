@@ -1,23 +1,30 @@
 let Base64 = require('./base64.js').Base64
 
-exports.people = function (token, distinctId, update) {
-  let message = {
-    $token: token,
-    $distinct_id: distinctId,
-    $time: Date.now(),
+exports.people = function (config, update) {
+  if (!config.time && !config.$time) {
+    config.time = Date.now()
   }
+
+  const message = Object.keys(config).reduce((acc, key) => {
+    if (key === 'token' ||
+        key === 'distinct_id' ||
+        key === 'time') {
+      key = '$' + key
+    }
+    acc[key] = config[key]
+  }, {})
 
   return transmit('https://api.mixpanel.com/engage/', Object.assign(message, update))
 }
 
-exports.events = function (token, distinctId, event, properties) {
+exports.events = function (config, event, properties) {
+  if (!config.time) {
+    config.time = Date.now()
+  }
+
   let message = {
     event: event,
-    properties: Object.assign({
-      token: token,
-      distinct_id: distinctId,
-      time: Date.now()
-    }, properties)
+    properties: Object.assign(config, properties)
   }
 
   return transmit('https://api.mixpanel.com/track/', message)
