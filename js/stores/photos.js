@@ -8,7 +8,7 @@ const { Store, toImmutable } = require('nuclear-js')
 
 module.exports = new Store({
   initialize () {
-    this.on('initialize photos store', (state, storedState) => state.set('toUpload', storedState))
+    this.on('initialize photos.toUpload', (state, storedState) => state.set('toUpload', storedState))
     this.on('took photo', tookPhoto)
 
     this.on('started photo upload', startedUpload)

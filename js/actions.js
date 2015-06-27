@@ -5,16 +5,16 @@ const { toImmutable } = require('nuclear-js')
 const moment = require('moment')
 const RNFS = require('react-native-fs')
 const config = require('../config.js')
-const mixpanel = require('./modules/mixpanel')
+const mixpanel = require('./modules/mixpanel/index.js')
 
 exports.mpEvents = mpEvents
 function mpEvents (event, properties) {
-  mixpanel.events(flux.evaluate(getters.mixpanelConfig), event, properties)
+  mixpanel.events(flux.evaluate(getters.mixpanelConfig), event, properties).catch(console.error)
 }
 
 exports.mpPeople = mpPeople
 function mpPeople (update) {
-  mixpanel.events(flux.evaluate(getters.mixpanelConfig), update)
+  mixpanel.people(flux.evaluate(getters.mixpanelConfig), update).catch(console.error)
 }
 
 exports.getSites = getSites

@@ -1,10 +1,11 @@
-var Nuclear = require('nuclear-js')
+const Nuclear = require('nuclear-js')
 const toImmutable = Nuclear.toImmutable
+const config = require('../../config.js')
 
 module.exports = new Nuclear.Store({
   getInitialState () {
     return toImmutable({
-      dropbox_access_token: null,
+      mixpanelToken: config.mixpanelToken,
       deviceId: null
     })
   },

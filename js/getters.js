@@ -22,6 +22,8 @@ exports.mixpanelConfig = [
   }
 ]
 
+exports.deviceId = ['config', 'deviceId']
+
 exports.photosToUpload = ['photos', 'toUpload']
 
 exports.photosCurrentlyUploading = ['photos', 'currentlyUploading']

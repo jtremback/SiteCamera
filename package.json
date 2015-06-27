@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "es6-promisify": "^1.1.1",
+    "js-base64": "^2.1.8",
+    "node-uuid": "^1.4.3",
     "nuclear-js": "git://github.com/optimizely/nuclear-js.git",
     "query-string": "^2.2.0",
     "react-native": "0.6.0-rc",
@@ -63,6 +65,7 @@
       "curly": 2,
       "camelcase": 0,
       "no-unused-vars": 1,
+      "no-unused-expressions": 0,
       "quotes": [
         2,
         "single"

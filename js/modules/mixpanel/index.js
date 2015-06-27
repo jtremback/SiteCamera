@@ -1,5 +1,3 @@
-let Base64 = require('./base64.js').Base64
-
 exports.people = function (config, update) {
   if (!config.time && !config.$time) {
     config.time = Date.now()
@@ -32,5 +30,8 @@ exports.events = function (config, event, properties) {
 
 exports.transmit = transmit
 function transmit (baseUrl, message) {
-  return fetch(`${baseUrl}?data=${Base64.encode(message)}`)
+  const promise = fetch(`${baseUrl}?data=${btoa(JSON.stringify(message))}&verbose=1`).then((res) => {
+    return res.text()
+  })
+  return promise
 }
