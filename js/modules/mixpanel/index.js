@@ -30,6 +30,7 @@ exports.events = function (config, event, properties) {
   return transmit('https://api.mixpanel.com/track/', message)
 }
 
+exports.transmit = transmit
 function transmit (baseUrl, message) {
   return fetch(`${baseUrl}?data=${Base64.encode(message)}`)
 }

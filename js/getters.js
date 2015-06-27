@@ -9,8 +9,21 @@ exports.sites = [
   (sites) => sites
 ]
 
+exports.mixpanelConfig = [
+  ['config', 'mixpanelToken'],
+  ['config', 'deviceId'],
+  ['user', 'dropboxProfile', 'uid'],
+  (mixpanelToken, deviceId, dropboxUid) => {
+    return {
+      token: mixpanelToken,
+      distinct_id: dropboxUid || deviceId,
+      device_id: deviceId
+    }
+  }
+]
+
 exports.photosToUpload = ['photos', 'toUpload']
 
 exports.photosCurrentlyUploading = ['photos', 'currentlyUploading']
 
-exports.dropboxAccessToken = ['config', 'dropbox_access_token']
+exports.dropboxAccessToken = ['user', 'dropboxAccessToken']

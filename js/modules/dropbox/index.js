@@ -92,3 +92,13 @@ function addFolder (access_token, path) {
       }
   })
 }
+
+exports.getAccountInfo = getAccountInfo
+function getAccountInfo (access_token) {
+  return fetch('https://api.dropbox.com/1/account/info', {
+    headers: {
+      'Authorization': `Bearer ${access_token}`
+    }
+  })
+  .then(res => res.json())
+}

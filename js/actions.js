@@ -1,46 +1,49 @@
-var dropbox = require('./modules/dropbox')
-var flux = require('./flux.js')
-var getters = require('./getters.js')
-var { toImmutable } = require('nuclear-js')
-var moment = require('moment')
+const dropbox = require('./modules/dropbox')
+const flux = require('./flux.js')
+const getters = require('./getters.js')
+const { toImmutable } = require('nuclear-js')
+const moment = require('moment')
 const RNFS = require('react-native-fs')
-var config = require('../config.js')
+const config = require('../config.js')
+const mixpanel = require('./modules/mixpanel')
 
-exports.storeSites = storeSites
-function storeSites(sites) {
-  flux.dispatch('set sites', toImmutable(sites));
+exports.mpEvents = mpEvents
+function mpEvents (event, properties) {
+  mixpanel.events(flux.evaluate(getters.mixpanelConfig), event, properties)
+}
+
+exports.mpPeople = mpPeople
+function mpPeople (update) {
+  mixpanel.events(flux.evaluate(getters.mixpanelConfig), update)
 }
 
 exports.getSites = getSites
-function getSites () {
-  const access_token = flux.evaluate(getters.dropboxAccessToken)
-  dropbox.getFolders(access_token)
-  .then(folders => {
-    return folders.reduce((acc, item) => {
-      const name = item.path.slice(1)
-      acc[name] = { name }
-      return acc
-    }, {})
-  })
-  .then(storeSites)
+async function getSites () {
+  const folders = await dropbox.getFolders(flux.evaluate(getters.dropboxAccessToken))
+  const sites = folders.reduce((acc, item) => {
+    const name = item.path.slice(1)
+    acc[name] = { name }
+    return acc
+  }, {})
+
+  flux.dispatch('set sites', toImmutable(sites))
+  return sites
+}
+
+exports.getProfile = getProfile
+async function getProfile () {
+  const profile = await dropbox.getAccountInfo(flux.evaluate(getters.dropboxAccessToken))
+
+  flux.dispatch('set dropbox user profile', profile)
+  return profile
 }
 
 exports.dropboxOauth = dropboxOauth
-function dropboxOauth () {
-  dropbox.oauth(config.app_key, config.redirect_url)
-  .then((access_token) => {
-    setConfig('dropbox_access_token', access_token)
-    getSites()
-  })
+async function dropboxOauth () {
+  const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
 
-  // Temporary!
-  // setConfig('dropbox_access_token', 'eFEcGxgInLIAAAAAAAAWLBDbWdhsJ-_yQbmOo84eD6_GOuULZ62ZSIbydYYMzCLE')
-  // getSites()
-}
-
-exports.setConfig = setConfig
-function setConfig (k, v) {
-  flux.dispatch('set config property', [k, toImmutable(v)])
+  flux.dispatch('set dropbox access token', accessToken)
+  return accessToken
 }
 
 exports.selectSite = selectSite

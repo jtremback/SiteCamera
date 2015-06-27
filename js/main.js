@@ -14,20 +14,21 @@ flux.initPersistence(['config', 'deviceId']).then(() => {
   }
 })
 
-
-// async function showAppleStockPriceAsync() {
-//   let url = 'http://dev.markitondemand.com/Api/v2/Quote/json?symbol=AAPL';
-//   let response = await fetch(url);
-//   let body = await response.json();
-//   let { AlertIOS } = require('react-native');
-//   AlertIOS.alert(body.Symbol, '$' + body.LastPrice);
-// }
-// showAppleStockPriceAsync();
-
 module.exports = React.createClass({
   displayName: 'Frame',
   componentDidMount () {
-    actions.dropboxOauth()
+    actions.mpEvents()
+    actions.dropboxOauth().then(async () => {
+      actions.getSites()
+      const profile = await actions.getProfile()
+      actions.mpPeople({ $set: {
+        $name: profile.display_name,
+        dropboxProfile: profile
+      }})
+      actions.mpEvents('$create_alias', {
+        alias: profile.uid
+      })
+    })
     StatusBarIOS.setStyle('light-content', true)
   },
   render () {
