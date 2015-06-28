@@ -1,6 +1,7 @@
 const Nuclear = require('nuclear-js')
 const toImmutable = Nuclear.toImmutable
 const config = require('../../config.js')
+const event = require('../events.js')
 
 module.exports = new Nuclear.Store({
   getInitialState () {
@@ -11,10 +12,10 @@ module.exports = new Nuclear.Store({
   },
 
   initialize () {
-    this.on('set config property', function (state, [k, v]) {
+    this.on(event['set config property'], function (state, [k, v]) {
       return state.set(k, v)
     })
 
-    this.on('set device id', (state, id) => state.set('deviceId', id))
+    this.on(event['set device id'], (state, id) => state.set('deviceId', id))
   }
 })

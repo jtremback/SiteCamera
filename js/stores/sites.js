@@ -1,5 +1,6 @@
-var Nuclear = require('nuclear-js')
+const Nuclear = require('nuclear-js')
 const toImmutable = Nuclear.toImmutable
+const event = require('../events.js')
 
 module.exports = new Nuclear.Store({
   getInitialState () {
@@ -21,9 +22,9 @@ module.exports = new Nuclear.Store({
   initialize () {
     // all action handlers are pure functions that take the current state and payload
     // and the returned value gets set as the new state
-    this.on('set sites', replaceSites)
-    this.on('add site', addSite)
-    this.on('select current site', selectSite)
+    this.on(event['set sites'], replaceSites)
+    this.on(event['add site'], addSite)
+    this.on(event['select current site'], selectSite)
   }
 })
 

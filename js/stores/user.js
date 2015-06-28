@@ -1,5 +1,6 @@
-var Nuclear = require('nuclear-js')
+const Nuclear = require('nuclear-js')
 const toImmutable = Nuclear.toImmutable
+const event = require('../events.js')
 
 module.exports = new Nuclear.Store({
   getInitialState () {
@@ -10,10 +11,10 @@ module.exports = new Nuclear.Store({
   },
 
   initialize () {
-    this.on('set dropbox user profile', (state, profile) => {
+    this.on(event['set dropbox user profile'], (state, profile) => {
       return state.set('dropboxProfile', toImmutable(profile))
     })
-    this.on('set dropbox access token', (state, token) => {
+    this.on(event['set dropbox access token'], (state, token) => {
       return state.set('dropboxAccessToken', token)
     })
   }
