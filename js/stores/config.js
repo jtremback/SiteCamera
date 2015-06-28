@@ -16,6 +16,6 @@ module.exports = new Nuclear.Store({
       return state.set(k, v)
     })
 
-    this.on(event['set device id'], (state, id) => state.set('deviceId', id))
+    this.on(event['new device id'], (state, id) => state.set('deviceId', id))
   }
 })

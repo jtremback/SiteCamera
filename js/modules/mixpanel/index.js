@@ -1,4 +1,4 @@
-exports.people = function (config, update) {
+exports.people = function people (config, update) {
   if (!config.time && !config.$time) {
     config.time = Date.now()
   }
@@ -6,16 +6,20 @@ exports.people = function (config, update) {
   const message = Object.keys(config).reduce((acc, key) => {
     if (key === 'token' ||
         key === 'distinct_id' ||
-        key === 'time') {
-      key = '$' + key
+        key === 'time')
+    {
+      acc['$' + key] = config[key]
+    } else {
+      acc[key] = config[key]
     }
-    acc[key] = config[key]
+
+    return acc
   }, {})
 
   return transmit('https://api.mixpanel.com/engage/', Object.assign(message, update))
 }
 
-exports.events = function (config, event, properties) {
+exports.events = function events (config, event, properties) {
   if (!config.time) {
     config.time = Date.now()
   }
@@ -30,6 +34,7 @@ exports.events = function (config, event, properties) {
 
 exports.transmit = transmit
 function transmit (baseUrl, message) {
+  console.log(baseUrl, message)
   const promise = fetch(`${baseUrl}?data=${btoa(JSON.stringify(message))}&verbose=1`).then((res) => {
     return res.text()
   })

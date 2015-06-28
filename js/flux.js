@@ -32,5 +32,12 @@ async function initPersistence (keypath) {
   })
 }
 
-flux.initPersistence = initPersistence
+function init () {
+  return Promise.all([
+    initPersistence(['photos', 'toUpload']),
+    initPersistence(['config', 'deviceId'])
+  ])
+}
+
+flux.init = init
 module.exports = flux

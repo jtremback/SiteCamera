@@ -27,7 +27,7 @@ test('sites', function (t) {
       }
     }
 
-    flux.dispatch('set sites', origSites)
+    flux.dispatch('get sites', origSites)
 
     const sites = flux.evaluateToJS(['sites', 'sites'])
 

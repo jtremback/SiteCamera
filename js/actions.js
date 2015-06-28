@@ -8,6 +8,21 @@ const config = require('../config.js')
 const mixpanel = require('./modules/mixpanel/index.js')
 const event = require('./events.js')
 
+exports.initApp = initApp
+async function initApp () {
+  await flux.init()
+
+  if (!flux.evaluate(getters.deviceId)) {
+    flux.dispatch(event['new device id'], Number(String(Math.random()).slice(2)))
+  }
+
+  mpEvents('startup')
+
+  await dropboxOauth()
+  mpRegisterProfile().catch(console.error)
+  await getSites()
+}
+
 exports.mpEvents = mpEvents
 function mpEvents (event, properties) {
   mixpanel.events(flux.evaluate(getters.mixpanelConfig), event, properties).catch(console.error)
@@ -16,6 +31,18 @@ function mpEvents (event, properties) {
 exports.mpPeople = mpPeople
 function mpPeople (update) {
   mixpanel.people(flux.evaluate(getters.mixpanelConfig), update).catch(console.error)
+}
+
+exports.mpRegisterProfile = mpRegisterProfile
+async function mpRegisterProfile () {
+  const profile = await getProfile()
+  mpPeople({ $set: {
+    $name: profile.display_name,
+    dropboxProfile: profile
+  }})
+  mpEvents('$create_alias', {
+    alias: profile.uid
+  })
 }
 
 exports.getSites = getSites
@@ -27,7 +54,7 @@ async function getSites () {
     return acc
   }, {})
 
-  flux.dispatch(event['set sites'], toImmutable(sites))
+  flux.dispatch(event['get sites'], toImmutable(sites))
   return sites
 }
 
@@ -35,7 +62,7 @@ exports.getProfile = getProfile
 async function getProfile () {
   const profile = await dropbox.getAccountInfo(flux.evaluate(getters.dropboxAccessToken))
 
-  flux.dispatch(event['set dropbox user profile'], profile)
+  flux.dispatch(event['get dropbox user profile'], profile)
   return profile
 }
 
@@ -43,7 +70,7 @@ exports.dropboxOauth = dropboxOauth
 async function dropboxOauth () {
   const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
 
-  flux.dispatch(event['set dropbox access token'], accessToken)
+  flux.dispatch(event['get dropbox access token'], accessToken)
   return accessToken
 }
 
@@ -59,6 +86,8 @@ function tookPhoto (path) {
     site: flux.evaluate(getters.selectedSite),
     timestamp: Date.now()
   })
+
+  mpEvents('took photo', photo.toJS())
 
   flux.dispatch(event['took photo'], photo)
   uploadPhoto(photo)

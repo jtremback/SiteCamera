@@ -32,7 +32,7 @@ process.on('unhandledRejection', function(e) {
 async function restartApp () {
   flux.reset()
   flux.__state = flux.__state.set('sites', toImmutable(sites))
-  await flux.initPersistence(['photos', 'toUpload'])
+  await flux.init()
 }
 
 function test (a, b) {
