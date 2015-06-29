@@ -153,7 +153,7 @@ module.exports = React.createClass({
         titleTextColor={colors.brand}
         style={styles.container}
         initialRoute={{
-          title: 'Job Sites',
+          title: 'Locations',
           component: SiteListScreenContainer,
           // leftButtonTitle: 'Settings',
           // onLeftButtonPress: this.onLeftButtonPress,
