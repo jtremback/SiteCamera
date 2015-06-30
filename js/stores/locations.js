@@ -6,7 +6,7 @@ module.exports = new Nuclear.Store({
   getInitialState () {
     // {
     //   selected: 'Garden Shed',
-    //   sites: {
+    //   locations: {
     //     'Garden Shed': {
     //       path: 'Garden Shed',
     //       other: 'stuff'
@@ -15,27 +15,27 @@ module.exports = new Nuclear.Store({
     // }
     return toImmutable({
       selected: null,
-      sites: {}
+      locations: {}
     })
   },
 
   initialize () {
     // all action handlers are pure functions that take the current state and payload
     // and the returned value gets set as the new state
-    this.on(event('get sites'), replaceSites)
-    this.on(event('add site'), addSite)
-    this.on(event('select current site'), selectSite)
+    this.on(event('get locations'), replaceSites)
+    this.on(event('add location'), addSite)
+    this.on(event('select current location'), selectSite)
   }
 })
 
-function replaceSites (state, sites) {
-  return state.set('sites', sites)
+function replaceSites (state, locations) {
+  return state.set('locations', locations)
 }
 
 function addSite (state, name) {
-  return state.setIn(['sites', name], toImmutable({ name: name }))
+  return state.setIn(['locations', name], toImmutable({ name: name }))
 }
 
-function selectSite (state, site) {
-  return state.set('selected', site)
+function selectSite (state, location) {
+  return state.set('selected', location)
 }

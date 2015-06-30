@@ -1,12 +1,12 @@
 exports.selectedSite = [
-  ['sites', 'selected'],
-  ['sites', 'sites'],
-  (selected, sites) => sites.get(selected)
+  ['locations', 'selected'],
+  ['locations', 'locations'],
+  (selected, locations) => locations.get(selected)
 ]
 
-exports.sites = [
-  ['sites', 'sites'],
-  (sites) => sites
+exports.locations = [
+  ['locations', 'locations'],
+  (locations) => locations
 ]
 
 exports.deviceId = ['config', 'deviceId']

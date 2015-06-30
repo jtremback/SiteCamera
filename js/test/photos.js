@@ -8,8 +8,8 @@ let fakeFS = {}
 let fakeDropbox = {}
 let fakeDropboxRes = null
 
-const sites = {
-  sites: {
+const locations = {
+  locations: {
     'Garden Shed': {
       'name': 'Garden Shed',
       'path': '/Garden Shed'
@@ -31,7 +31,7 @@ process.on('unhandledRejection', function(e) {
 
 async function restartApp () {
   flux.reset()
-  flux.__state = flux.__state.set('sites', toImmutable(sites))
+  flux.__state = flux.__state.set('locations', toImmutable(locations))
   await flux.init()
 }
 
@@ -66,6 +66,14 @@ const actions = mock(require.resolve('../actions.js'), {
     }
   },
   [require.resolve('../flux.js')]: flux,
+  [require.resolve('../modules/mixpanel/')]: {
+    people: function () {
+      return new Promise((resolve, reject) => {})
+    },
+    events: function () {
+      return new Promise((resolve, reject) => {})
+    }
+  },
   [require.resolve('../modules/dropbox/')]: {
     async uploadPhoto (accessToken, path, uploadUrl) {
       fakeDropbox[path] = uploadUrl
@@ -104,7 +112,7 @@ test('unsuccessful upload', function (t) {
     t.equal(fakeFS[path], true)
     t.deepEqual(flux.evaluate(getters.photosToUpload).toJS(), { foo: {
       path: 'foo',
-      site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
+      location: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
       timestamp: 0 }})
     t.end()
   })
@@ -117,13 +125,13 @@ test('successful reupload', function (t) {
 
   flux.__state.setIn(['photos', 'toUpload'], { foo: {
     path: 'foo',
-    site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
+    location: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
     timestamp: 0 }})
 
   actions.uploadPhotos()
   t.deepEqual(flux.evaluate(getters.photosCurrentlyUploading).toJS(), { foo: {
     path: 'foo',
-    site: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
+    location: { name: 'Vallejo Gymnasium', path: '/Vallejo Gymnasium' },
     timestamp: 0 }})
   setTimeout(() => {
     t.equal(flux.evaluate(getters.photosCurrentlyUploading).size, 0)

@@ -1,7 +1,7 @@
 const { Reactor, toImmutable, toJS } = require('nuclear-js')
 const { AsyncStorage } = require('react-native')
 
-const sites = require('./stores/sites.js')
+const locations = require('./stores/locations.js')
 const photos = require('./stores/photos.js')
 const config = require('./stores/config.js')
 const user = require('./stores/user.js')
@@ -12,7 +12,7 @@ let flux = new Reactor({
 })
 
 flux.registerStores({
-  sites,
+  locations,
   photos,
   config,
   user,

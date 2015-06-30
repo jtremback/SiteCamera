@@ -1,5 +1,6 @@
 const mock = require('mock')
 const test = require('tape')
+const { toImmutable } = require('nuclear-js')
 
 let fakeStorage = {}
 
@@ -17,38 +18,20 @@ const flux = mock(require.resolve('../flux.js'), {
   }
 })
 
-
-test('sites', function (t) {
-  flux.initState().then(() => {
-    const origSites = {
-      'Garden Shed': {
-        path: 'Garden Shed',
-        other: 'stuff'
-      }
-    }
-
-    flux.dispatch('get sites', origSites)
-
-    const sites = flux.evaluateToJS(['sites', 'sites'])
-
-    t.equals(sites, origSites)
-    t.end()
-  }).catch((e) => { throw e })
-})
-
 test('toUpload', function (t) {
   flux.reset()
-  flux.initState().then(() => {
-    const photo = {
+  flux.init().then(() => {
+    let photo = toImmutable({
       path: 'foo',
       timestamp: 3
-    }
+    })
 
     flux.dispatch('took photo', photo)
     flux.reset()
-    flux.initState().then(() => {
-      const photosToUpload = flux.evaluateToJS(['toUpload', 'photos'])
-      t.deepEquals({ [photo.path]: photo}, photosToUpload)
+    flux.init().then(() => {
+      const photosToUpload = flux.evaluateToJS(['photos', 'toUpload'])
+      photo = photo.toJS()
+      t.deepEquals({[photo.path]: photo}, photosToUpload)
       t.end()
     })
   })

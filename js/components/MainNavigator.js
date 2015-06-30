@@ -45,7 +45,7 @@ const SiteListScreenContainer = React.createClass({
 
   getDataBindings () {
     return {
-      sites: getters.sites,
+      locations: getters.locations,
       photosToUpload: getters.photosToUpload,
       photosCurrentlyUploading: getters.photosCurrentlyUploading
     }
@@ -63,7 +63,7 @@ const SiteListScreenContainer = React.createClass({
     return (
       <SiteListScreen
         rowPressed={this.rowPressed}
-        listData={this.state.sites}
+        listData={this.state.locations}
         uploadPhotosPressed={actions.uploadPhotos}
         photosToUpload={this.state.photosToUpload}
         photosCurrentlyUploading={this.state.photosCurrentlyUploading}
@@ -82,7 +82,7 @@ const AddSiteScreenContainer = React.createClass({
   // mixins: [flux.ReactMixin],
   // getDataBindings () {
   //   return {
-  //     sites: getters.sites,
+  //     locations: getters.locations,
   //     photosToUpload: getters.photosToUpload,
   //     photosCurrentlyUploading: getters.photosCurrentlyUploading
   //   }
@@ -112,7 +112,7 @@ const SettingsScreenContainer = React.createClass({
   mixins: [flux.ReactMixin],
   getDataBindings () {
     return {
-      sites: getters.sites,
+      locations: getters.locations,
       photosToUpload: getters.photosToUpload,
       photosCurrentlyUploading: getters.photosCurrentlyUploading
     }

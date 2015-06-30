@@ -1,3 +1,13 @@
+new events:
+- failed upload + time
+- successful upload + time
+- retry upload
+- upload count added to profile
+
+
+
+
+
 - Flip camera
 - Pull to reload sites
 - Add site

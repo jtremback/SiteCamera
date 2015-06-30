@@ -7,9 +7,9 @@ const events = eventMap([
   'started photo upload',
   'successful photo upload',
   'failed photo upload',
-  'get sites',
-  'add site',
-  'select current site',
+  'get locations',
+  'add location',
+  'select current location',
   'get dropbox user profile',
   'get dropbox access token'
 ])

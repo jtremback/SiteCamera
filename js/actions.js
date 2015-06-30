@@ -48,14 +48,14 @@ async function mpRegisterProfile () {
 exports.getSites = getSites
 async function getSites () {
   const folders = await dropbox.getFolders(flux.evaluate(getters.dropboxAccessToken))
-  const sites = folders.reduce((acc, item) => {
+  const locations = folders.reduce((acc, item) => {
     const name = item.path.slice(1)
     acc[name] = { name }
     return acc
   }, {})
 
-  flux.dispatch(event('get sites'), toImmutable(sites))
-  return sites
+  flux.dispatch(event('get locations'), toImmutable(locations))
+  return locations
 }
 
 exports.getProfile = getProfile
@@ -76,14 +76,14 @@ async function dropboxOauth () {
 
 exports.selectSite = selectSite
 function selectSite (path) {
-  flux.dispatch(event('select current site'), path)
+  flux.dispatch(event('select current location'), path)
 }
 
 exports.tookPhoto = tookPhoto
 function tookPhoto (path) {
   const photo = toImmutable({
     path: path,
-    site: flux.evaluate(getters.selectedSite),
+    location: flux.evaluate(getters.selectedSite),
     timestamp: Date.now()
   })
 
@@ -96,7 +96,7 @@ function tookPhoto (path) {
 async function uploadPhoto (photo) {
   flux.dispatch(event('started photo upload'), photo)
   const uploadUrl = encodeURI(
-    photo.getIn(['site', 'name']) +
+    photo.getIn(['location', 'name']) +
     `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
     `/${moment(photo.get('timestamp')).format('h.mm.ss.a')}.jpg`
   )
@@ -126,5 +126,5 @@ async function uploadPhotos () {
 
 exports.addSite = addSite
 async function addSite (name) {
-  flux.dispatch(event('add site'), name)
+  flux.dispatch(event('add location'), name)
 }
