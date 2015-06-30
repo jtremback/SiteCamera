@@ -22,9 +22,9 @@ module.exports = new Nuclear.Store({
   initialize () {
     // all action handlers are pure functions that take the current state and payload
     // and the returned value gets set as the new state
-    this.on(event['get sites'], replaceSites)
-    this.on(event['add site'], addSite)
-    this.on(event['select current site'], selectSite)
+    this.on(event('get sites'), replaceSites)
+    this.on(event('add site'), addSite)
+    this.on(event('select current site'), selectSite)
   }
 })
 

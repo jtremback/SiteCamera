@@ -13,7 +13,7 @@ async function initApp () {
   await flux.init()
 
   if (!flux.evaluate(getters.deviceId)) {
-    flux.dispatch(event['new device id'], Number(String(Math.random()).slice(2)))
+    flux.dispatch(event('new device id'), Number(String(Math.random()).slice(2)))
   }
 
   mpEvents('startup')
@@ -54,7 +54,7 @@ async function getSites () {
     return acc
   }, {})
 
-  flux.dispatch(event['get sites'], toImmutable(sites))
+  flux.dispatch(event('get sites'), toImmutable(sites))
   return sites
 }
 
@@ -62,7 +62,7 @@ exports.getProfile = getProfile
 async function getProfile () {
   const profile = await dropbox.getAccountInfo(flux.evaluate(getters.dropboxAccessToken))
 
-  flux.dispatch(event['get dropbox user profile'], profile)
+  flux.dispatch(event('get dropbox user profile'), profile)
   return profile
 }
 
@@ -70,13 +70,13 @@ exports.dropboxOauth = dropboxOauth
 async function dropboxOauth () {
   const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
 
-  flux.dispatch(event['get dropbox access token'], accessToken)
+  flux.dispatch(event('get dropbox access token'), accessToken)
   return accessToken
 }
 
 exports.selectSite = selectSite
 function selectSite (path) {
-  flux.dispatch(event['select current site'], path)
+  flux.dispatch(event('select current site'), path)
 }
 
 exports.tookPhoto = tookPhoto
@@ -89,12 +89,12 @@ function tookPhoto (path) {
 
   mpEvents('took photo', photo.toJS())
 
-  flux.dispatch(event['took photo'], photo)
+  flux.dispatch(event('took photo'), photo)
   uploadPhoto(photo)
 }
 
 async function uploadPhoto (photo) {
-  flux.dispatch(event['started photo upload'], photo)
+  flux.dispatch(event('started photo upload'), photo)
   const uploadUrl = encodeURI(
     photo.getIn(['site', 'name']) +
     `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
@@ -108,7 +108,7 @@ async function uploadPhoto (photo) {
   )
 
   if (res.status === 200) {
-    flux.dispatch(event['successful photo upload'], photo)
+    flux.dispatch(event('successful photo upload'), photo)
     RNFS.unlink(photo.get('path'))
   } else {
     flux.dispatch('failed photo upload', photo)
@@ -126,5 +126,5 @@ async function uploadPhotos () {
 
 exports.addSite = addSite
 async function addSite (name) {
-  flux.dispatch(event['add site'], name)
+  flux.dispatch(event('add site'), name)
 }

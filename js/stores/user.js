@@ -11,10 +11,10 @@ module.exports = new Nuclear.Store({
   },
 
   initialize () {
-    this.on(event['get dropbox user profile'], (state, profile) => {
+    this.on(event('get dropbox user profile'), (state, profile) => {
       return state.set('dropboxProfile', toImmutable(profile))
     })
-    this.on(event['get dropbox access token'], (state, token) => {
+    this.on(event('get dropbox access token'), (state, token) => {
       return state.set('dropboxAccessToken', token)
     })
   }

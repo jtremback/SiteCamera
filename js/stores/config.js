@@ -12,10 +12,13 @@ module.exports = new Nuclear.Store({
   },
 
   initialize () {
-    this.on(event['set config property'], function (state, [k, v]) {
+    this.on(event('set config property'), function (state, [k, v]) {
       return state.set(k, v)
     })
 
-    this.on(event['new device id'], (state, id) => state.set('deviceId', id))
+    this.on(event('new device id'), (state, id) => state.set('deviceId', id))
+    this.on(event('initialize config.deviceId'), (state, id) => {
+      return state.set('deviceId', id)
+    })
   }
 })

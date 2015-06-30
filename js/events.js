@@ -1,7 +1,8 @@
-module.exports = eventMap([
+const events = eventMap([
   'set config property',
   'new device id',
   'initialize photos.toUpload',
+  'initialize config.deviceId',
   'took photo',
   'started photo upload',
   'successful photo upload',
@@ -18,4 +19,10 @@ function eventMap (array) {
     acc[item] = item
     return acc
   }, {})
+}
+
+module.exports = function (eventName) {
+  const event = events[eventName]
+  if (event === undefined) { throw new Error('event does not exist')}
+  return event
 }

@@ -9,9 +9,11 @@ exports.sites = [
   (sites) => sites
 ]
 
+exports.deviceId = ['config', 'deviceId']
+
 exports.mixpanelConfig = [
   ['config', 'mixpanelToken'],
-  ['config', 'deviceId'],
+  exports.deviceId,
   ['user', 'dropboxProfile', 'uid'],
   (mixpanelToken, deviceId, dropboxUid) => {
     return {
@@ -21,8 +23,6 @@ exports.mixpanelConfig = [
     }
   }
 ]
-
-exports.deviceId = ['config', 'deviceId']
 
 exports.photosToUpload = ['photos', 'toUpload']
 

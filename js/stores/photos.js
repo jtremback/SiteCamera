@@ -8,12 +8,12 @@ const event = require('../events.js')
 
 module.exports = new Store({
   initialize () {
-    this.on(event['initialize photos.toUpload'], (state, storedState) => state.set('toUpload', storedState))
-    this.on(event['took photo'], tookPhoto)
+    this.on(event('initialize photos.toUpload'), (state, storedState) => state.set('toUpload', storedState))
+    this.on(event('took photo'), tookPhoto)
 
-    this.on(event['started photo upload'], startedUpload)
-    this.on(event['successful photo upload'], successfulUpload)
-    this.on(event['failed photo upload'], failedUpload)
+    this.on(event('started photo upload'), startedUpload)
+    this.on(event('successful photo upload'), successfulUpload)
+    this.on(event('failed photo upload'), failedUpload)
   }
 })
 
