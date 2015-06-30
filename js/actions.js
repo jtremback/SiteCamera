@@ -87,7 +87,11 @@ function tookPhoto (path) {
     timestamp: Date.now()
   })
 
-  mpEvents('took photo', photo.toJS())
+  mpEvents('took photo', {
+    time: photo.get('timestamp'),
+    path: photo.get('path'),
+    location: photo.getIn([location, name])
+  })
 
   flux.dispatch(event('took photo'), photo)
   uploadPhoto(photo)
@@ -95,6 +99,7 @@ function tookPhoto (path) {
 
 async function uploadPhoto (photo) {
   flux.dispatch(event('started photo upload'), photo)
+  const startTime = Date.now()
   const uploadUrl = encodeURI(
     photo.getIn(['location', 'name']) +
     `/${moment(photo.get('timestamp')).format('MMMM Do YYYY')}` +
@@ -110,8 +115,20 @@ async function uploadPhoto (photo) {
   if (res.status === 200) {
     flux.dispatch(event('successful photo upload'), photo)
     RNFS.unlink(photo.get('path'))
+    mpEvents('successful upload', {
+      time: photo.get('timestamp'),
+      path: photo.get('path'),
+      location: photo.getIn([location, name]),
+      duration: Date.now() - startTime
+    })
   } else {
     flux.dispatch('failed photo upload', photo)
+    mpEvents('failed upload', {
+      time: photo.get('timestamp'),
+      path: photo.get('path'),
+      location: photo.getIn([location, name]),
+      duration: Date.now() - startTime
+    })
   }
 }
 
