@@ -28,7 +28,7 @@ exports.events = function events (config, event, properties) {
 
   let message = {
     event: event,
-    properties: Object.assign(config, properties)
+    properties: Object.assign({}, config, properties)
   }
 
   return transmit('https://api.mixpanel.com/track/', message)
@@ -36,7 +36,7 @@ exports.events = function events (config, event, properties) {
 
 exports.transmit = transmit
 function transmit (baseUrl, message) {
-  // console.log(baseUrl, message)
+  console.log('mixpanel', baseUrl, message)
   const promise = fetch(`${baseUrl}?data=${base64.encode(JSON.stringify(message))}&verbose=1`).then((res) => {
     return res.text()
   })
