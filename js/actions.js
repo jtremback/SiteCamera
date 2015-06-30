@@ -16,7 +16,9 @@ async function initApp () {
     flux.dispatch(event('new device id'), Number(String(Math.random()).slice(2)))
   }
 
-  mpEvents('startup')
+  mpEvents('startup', {
+    'photos.toUpload': flux.evaluate(['photos', 'toUpload']).toList().toJS()
+  })
 
   await dropboxOauth()
   mpRegisterProfile().catch(console.error)
@@ -119,15 +121,16 @@ async function uploadPhoto (photo) {
       time: photo.get('timestamp'),
       path: photo.get('path'),
       location: photo.getIn([location, name]),
-      duration: Date.now() - startTime
+      duration: (Date.now() - startTime) / 1000
     })
   } else {
     flux.dispatch('failed photo upload', photo)
     mpEvents('failed upload', {
       time: photo.get('timestamp'),
       path: photo.get('path'),
+      res: res,
       location: photo.getIn([location, name]),
-      duration: Date.now() - startTime
+      duration: (Date.now() - startTime) / 1000
     })
   }
 }
