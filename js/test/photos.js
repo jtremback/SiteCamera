@@ -63,6 +63,7 @@ const actions = mock(require.resolve('../actions.js'), {
   'react-native-fs': {
     unlink (path) {
       fakeFS[path] = 'deleted'
+      return new Promise((resolve, reject) => {})
     }
   },
   [require.resolve('../flux.js')]: flux,

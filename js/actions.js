@@ -22,7 +22,7 @@ async function initApp () {
 
   await dropboxOauth()
   mpRegisterProfile().catch(console.error)
-  await getSites()
+  await getLocations()
 }
 
 exports.mpEvents = mpEvents
@@ -47,8 +47,8 @@ async function mpRegisterProfile () {
   })
 }
 
-exports.getSites = getSites
-async function getSites () {
+exports.getLocations = getLocations
+async function getLocations () {
   const folders = await dropbox.getFolders(flux.evaluate(getters.dropboxAccessToken))
   const locations = folders.reduce((acc, item) => {
     const name = item.path.slice(1)
@@ -76,23 +76,26 @@ async function dropboxOauth () {
   return accessToken
 }
 
-exports.selectSite = selectSite
-function selectSite (path) {
-  flux.dispatch(event('select current location'), path)
+exports.selectLocation = selectLocation
+function selectLocation (name) {
+  flux.dispatch(event('select current location'), name)
+  mpEvents('select current location', {
+    name: name
+  })
 }
 
 exports.tookPhoto = tookPhoto
 function tookPhoto (path) {
   const photo = toImmutable({
     path: path,
-    location: flux.evaluate(getters.selectedSite),
+    location: flux.evaluate(getters.selectedLocation),
     timestamp: Date.now()
   })
 
   mpEvents('took photo', {
     time: photo.get('timestamp'),
     path: photo.get('path'),
-    location: photo.getIn([location, name])
+    location: photo.getIn(['location', 'name'])
   })
 
   flux.dispatch(event('took photo'), photo)
@@ -101,6 +104,11 @@ function tookPhoto (path) {
 
 async function uploadPhoto (photo) {
   flux.dispatch(event('started photo upload'), photo)
+  mpEvents('started photo upload', {
+    time: photo.get('timestamp'),
+    path: photo.get('path'),
+    location: photo.getIn(['location', 'name'])
+  })
   const startTime = Date.now()
   const uploadUrl = encodeURI(
     photo.getIn(['location', 'name']) +
@@ -116,11 +124,15 @@ async function uploadPhoto (photo) {
 
   if (res.status === 200) {
     flux.dispatch(event('successful photo upload'), photo)
-    RNFS.unlink(photo.get('path'))
-    mpEvents('successful upload', {
+    RNFS.unlink(photo.get('path')).catch((e) => {
+      mpEvents('failed deletion', {
+        error: e.message
+      })
+    })
+    mpEvents('successful photo upload', {
       time: photo.get('timestamp'),
       path: photo.get('path'),
-      location: photo.getIn([location, name]),
+      location: photo.getIn(['location', 'name']),
       duration: (Date.now() - startTime) / 1000
     })
   } else {
@@ -129,7 +141,7 @@ async function uploadPhoto (photo) {
       time: photo.get('timestamp'),
       path: photo.get('path'),
       res: res,
-      location: photo.getIn([location, name]),
+      location: photo.getIn(['location', 'name']),
       duration: (Date.now() - startTime) / 1000
     })
   }
@@ -144,7 +156,7 @@ async function uploadPhotos () {
   await Promise.all(promises)
 }
 
-exports.addSite = addSite
-async function addSite (name) {
+exports.addLocation = addLocation
+async function addLocation (name) {
   flux.dispatch(event('add location'), name)
 }

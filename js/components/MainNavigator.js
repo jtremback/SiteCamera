@@ -2,11 +2,16 @@ var flux = require('../flux.js')
 var getters = require('../getters.js')
 var actions = require('../actions.js')
 var React = require('react-native')
-var { NavigatorIOS, PropTypes, Text } = React
+var {
+  NavigatorIOS,
+  PropTypes,
+  Text,
+  WebView,
+} = React
 var CameraScreen = require('./CameraScreen.js')
-var SiteListScreen = require('./SiteListScreen.js')
+var LocationListScreen = require('./LocationListScreen.js')
 var SettingsScreen = require('./SettingsScreen.js')
-var AddSiteScreen = require('./AddSiteScreen.js')
+var AddLocationScreen = require('./AddLocationScreen.js')
 
 var colors = require('../styles/colors.js')
 
@@ -15,6 +20,19 @@ var styles = React.StyleSheet.create({
     flex: 1,
   }
 })
+
+
+
+// const WebViewScreenContainer = React.createClass({
+//   displayName: 'WebViewScreenContainer',
+//   render () {
+//     return (
+//       <WebView
+//         url={this.props.url}
+//       />
+//     )
+//   }
+// })
 
 
 
@@ -31,8 +49,8 @@ const CameraScreenContainer = React.createClass({
 
 
 
-const SiteListScreenContainer = React.createClass({
-  displayName: 'SiteListScreenContainer',
+const LocationListScreenContainer = React.createClass({
+  displayName: 'LocationListScreenContainer',
   propTypes: {
     navigator: PropTypes.object,
     getNavigator: PropTypes.function
@@ -52,7 +70,7 @@ const SiteListScreenContainer = React.createClass({
   },
 
   rowPressed (row) {
-    actions.selectSite(row.name)
+    actions.selectLocation(row.name)
     this.props.navigator.push({
       title: row.name,
       component: CameraScreenContainer,
@@ -61,7 +79,7 @@ const SiteListScreenContainer = React.createClass({
 
   render () {
     return (
-      <SiteListScreen
+      <LocationListScreen
         rowPressed={this.rowPressed}
         listData={this.state.locations}
         uploadPhotosPressed={actions.uploadPhotos}
@@ -74,29 +92,21 @@ const SiteListScreenContainer = React.createClass({
 
 
 
-const AddSiteScreenContainer = React.createClass({
-  displayName: 'AddSiteScreenContainer',
+const AddLocationScreenContainer = React.createClass({
+  displayName: 'AddLocationScreenContainer',
   propTypes: {
     navigator: PropTypes.object,
   },
-  // mixins: [flux.ReactMixin],
-  // getDataBindings () {
-  //   return {
-  //     locations: getters.locations,
-  //     photosToUpload: getters.photosToUpload,
-  //     photosCurrentlyUploading: getters.photosCurrentlyUploading
-  //   }
-  // },
 
-  addSite (name) {
-    actions.addSite(name)
+  addLocation (name) {
+    actions.addLocation(name)
     this.props.navigator.pop()
   },
 
   render () {
     return (
-      <AddSiteScreen
-        addSite={this.addSite}
+      <AddLocationScreen
+        addLocation={this.addLocation}
       />
     )
   }
@@ -141,8 +151,8 @@ module.exports = React.createClass({
 
   onRightButtonPress () {
     this.navigator.push({
-      title: 'Add Site',
-      component: AddSiteScreenContainer,
+      title: 'Add Location',
+      component: AddLocationScreenContainer,
     })
   },
 
@@ -154,7 +164,7 @@ module.exports = React.createClass({
         style={styles.container}
         initialRoute={{
           title: 'Locations',
-          component: SiteListScreenContainer,
+          component: LocationListScreenContainer,
           // leftButtonTitle: 'Settings',
           // onLeftButtonPress: this.onLeftButtonPress,
           rightButtonIcon: require('image!NavBarButtonPlus'),

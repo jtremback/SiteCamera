@@ -22,20 +22,20 @@ module.exports = new Nuclear.Store({
   initialize () {
     // all action handlers are pure functions that take the current state and payload
     // and the returned value gets set as the new state
-    this.on(event('get locations'), replaceSites)
-    this.on(event('add location'), addSite)
-    this.on(event('select current location'), selectSite)
+    this.on(event('get locations'), replaceLocations)
+    this.on(event('add location'), addLocation)
+    this.on(event('select current location'), selectLocation)
   }
 })
 
-function replaceSites (state, locations) {
+function replaceLocations (state, locations) {
   return state.set('locations', locations)
 }
 
-function addSite (state, name) {
+function addLocation (state, name) {
   return state.setIn(['locations', name], toImmutable({ name: name }))
 }
 
-function selectSite (state, location) {
+function selectLocation (state, location) {
   return state.set('selected', location)
 }

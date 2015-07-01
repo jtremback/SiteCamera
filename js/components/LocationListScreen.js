@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 })
 
 module.exports = React.createClass({
-  displayName: 'SiteListScreen',
+  displayName: 'LocationListScreen',
   propTypes: {
 
     // An array of rows

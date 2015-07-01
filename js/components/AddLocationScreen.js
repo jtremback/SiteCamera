@@ -40,24 +40,24 @@ const styles = StyleSheet.create({
 })
 
 module.exports = React.createClass({
-  displayName: 'AddSiteScreen',
+  displayName: 'AddLocationScreen',
   propTypes: {
-    addSite: PropTypes.function
+    addLocation: PropTypes.function
   },
-  addSitePressed () {
-    this.props.addSite(this.state.input)
+  addLocationPressed () {
+    this.props.addLocation(this.state.input)
   },
   render () {
     return (
       <View style={styles.container}>
         <TextInput
           style={styles.input}
-          placeholder={'Site name'}
+          placeholder={'Location name'}
           autoCorrect={false}
           onChangeText={(text) => this.setState({ input: text })}
         />
         <TouchableHighlight style={styles.button}
-          onPress={this.addSitePressed}
+          onPress={this.addLocationPressed}
           underlayColor={colors.brand}
         >
           <Text style={styles.buttonText}>Save</Text>

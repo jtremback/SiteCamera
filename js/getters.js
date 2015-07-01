@@ -1,4 +1,4 @@
-exports.selectedSite = [
+exports.selectedLocation = [
   ['locations', 'selected'],
   ['locations', 'locations'],
   (selected, locations) => locations.get(selected)
