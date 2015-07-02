@@ -11,13 +11,14 @@
   "dependencies": {
     "es6-promisify": "^1.1.1",
     "js-base64": "^2.1.8",
+    "moment": "^2.10.3",
     "node-uuid": "^1.4.3",
     "nuclear-js": "git://github.com/optimizely/nuclear-js.git",
     "query-string": "^2.2.0",
-    "react-native": "0.6.0-rc",
+    "react-native": "0.6.0",
     "react-native-button": "^1.2.0",
     "react-native-camera": "jtremback/react-native-camera",
-    "react-native-fs": "jtremback/react-native-fs",
+    "react-native-fs": "latest",
     "regenerator": "^0.8.30"
   },
   "devDependencies": {

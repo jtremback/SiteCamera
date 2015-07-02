@@ -19,16 +19,16 @@ module.exports = React.createClass({
   },
 
   componentDidMount () {
-    // actions.initApp().catch(console.error)
+    actions.initApp().catch(console.error)
     // StatusBarIOS.setStyle('light-content', true)
   },
 
   render () {
     return (
-      this.state.dropboxAccessToken ?
+      // this.state.dropboxAccessToken ?
         <MainNavigator />
-      :
-        <Text>log in with dropbox FFS</Text>
+      // :
+        // <Text>log in with dropbox FFS</Text>
     )
   }
 })
