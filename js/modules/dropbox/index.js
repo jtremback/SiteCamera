@@ -40,6 +40,19 @@ function oauth (app_key, redirect_uri) {
   })
 }
 
+exports.generateOauthUrl = generateOauthUrl
+function generateOauthUrl (appKey, redirectUri, state) {
+  return [
+    'https://www.dropbox.com/1/oauth2/authorize',
+    '?response_type=token',
+    '&client_id=' + appKey,
+    '&redirect_uri=' + redirectUri,
+    `&state=${state}`
+  ].join('')
+}
+
+
+
 // `file://${path}`
 // `https://api-content.dropbox.com/1/files_put/auto/${dest_path}`
 

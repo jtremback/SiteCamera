@@ -148,6 +148,9 @@ module.exports = React.createClass({
       :
         null
       }
+      <Button onPress={this.props.signIn}>
+        Sign In
+      </Button>
       </View>
     )
   }

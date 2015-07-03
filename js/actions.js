@@ -19,10 +19,6 @@ async function initApp () {
   mpEvents('startup', {
     'photos.toUpload': flux.evaluate(['photos', 'toUpload']).toList().toJS()
   })
-
-  await dropboxOauth()
-  mpRegisterProfile().catch(console.error)
-  await getLocations()
 }
 
 exports.mpEvents = mpEvents
@@ -36,8 +32,7 @@ function mpPeople (update) {
 }
 
 exports.mpRegisterProfile = mpRegisterProfile
-async function mpRegisterProfile () {
-  const profile = await getProfile()
+function mpRegisterProfile (profile) {
   mpPeople({ $set: {
     $name: profile.display_name,
     dropboxProfile: profile
@@ -68,13 +63,20 @@ async function getProfile () {
   return profile
 }
 
-exports.dropboxOauth = dropboxOauth
-async function dropboxOauth () {
-  const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
-
+exports.onCredentials = onCredentials
+function onCredentials (accessToken) {
   flux.dispatch(event('get dropbox access token'), accessToken)
-  return accessToken
+  getProfile().then(mpRegisterProfile).catch(console.error)
+  getLocations().catch(console.error)
 }
+
+// exports.dropboxOauth = dropboxOauth
+// async function dropboxOauth () {
+//   const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
+
+//   flux.dispatch(event('get dropbox access token'), accessToken)
+//   return accessToken
+// }
 
 exports.selectLocation = selectLocation
 function selectLocation (name) {

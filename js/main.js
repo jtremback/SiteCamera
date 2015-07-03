@@ -10,25 +10,15 @@ const getters = require('./getters.js')
 
 module.exports = React.createClass({
   displayName: 'Frame',
-  mixins: [flux.ReactMixin],
-
-  getDataBindings () {
-    return {
-      dropboxAccessToken: getters.dropboxAccessToken
-    }
-  },
 
   componentDidMount () {
-    actions.initApp().catch(console.error)
+    // actions.initApp().catch(console.error)
     // StatusBarIOS.setStyle('light-content', true)
   },
 
   render () {
     return (
-      // this.state.dropboxAccessToken ?
-        <MainNavigator />
-      // :
-        // <Text>log in with dropbox FFS</Text>
+      <MainNavigator />
     )
   }
 })

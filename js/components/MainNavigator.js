@@ -1,21 +1,24 @@
-var flux = require('../flux.js')
-var getters = require('../getters.js')
-var actions = require('../actions.js')
-var React = require('react-native')
-var {
+const flux = require('../flux.js')
+const getters = require('../getters.js')
+const actions = require('../actions.js')
+const React = require('react-native')
+const config = require('../../config.js')
+const {
   NavigatorIOS,
   PropTypes,
   Text,
   WebView,
 } = React
-var CameraScreen = require('./CameraScreen.js')
-var LocationListScreen = require('./LocationListScreen.js')
-var SettingsScreen = require('./SettingsScreen.js')
-var AddLocationScreen = require('./AddLocationScreen.js')
 
-var colors = require('../styles/colors.js')
+const CameraScreen = require('./CameraScreen.js')
+const LocationListScreen = require('./LocationListScreen.js')
+const SettingsScreen = require('./SettingsScreen.js')
+const AddLocationScreen = require('./AddLocationScreen.js')
+const DropboxOauthSignInScreen = require('./DropboxOauthSignInScreen.js')
 
-var styles = React.StyleSheet.create({
+const colors = require('../styles/colors.js')
+
+const styles = React.StyleSheet.create({
   container: {
     flex: 1,
   }
@@ -23,16 +26,24 @@ var styles = React.StyleSheet.create({
 
 
 
-// const WebViewScreenContainer = React.createClass({
-//   displayName: 'WebViewScreenContainer',
-//   render () {
-//     return (
-//       <WebView
-//         url={this.props.url}
-//       />
-//     )
-//   }
-// })
+const DropboxOauthSignInScreenContainer = React.createClass({
+  displayName: 'DropboxOauthSignInScreenContainer',
+
+  onCredentials (accessToken) {
+    actions.onCredentials(accessToken)
+    this.props.navigator.pop()
+  },
+
+  render () {
+    return (
+      <DropboxOauthSignInScreen
+        appKey={config.app_key}
+        redirectUrl={config.redirect_url}
+        onCredentials={this.onCredentials}
+      />
+    )
+  }
+})
 
 
 
@@ -74,6 +85,13 @@ const LocationListScreenContainer = React.createClass({
     this.props.navigator.push({
       title: row.name,
       component: CameraScreenContainer,
+    })
+  },
+
+  signIn () {
+    this.props.navigator.push({
+      title: 'Sign In',
+      component: DropboxOauthSignInScreenContainer,
     });
   },
 
@@ -85,6 +103,7 @@ const LocationListScreenContainer = React.createClass({
         uploadPhotosPressed={actions.uploadPhotos}
         photosToUpload={this.state.photosToUpload}
         photosCurrentlyUploading={this.state.photosCurrentlyUploading}
+        signIn={this.signIn}
       />
     )
   }
