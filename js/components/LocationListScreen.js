@@ -16,11 +16,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
 
-  thumb: {
-    width: 80,
-    height: 80,
-    marginRight: 10
-  },
   textContainer: {
     flex: 1
   },
@@ -34,6 +29,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17
+  },
+
+  message: {
+    padding: 10,
+    fontSize: 18,
+    color: '#aaa',
+    textAlign: 'center',
+    marginTop: 70,
   },
 
   notice: {
@@ -66,16 +69,16 @@ module.exports = React.createClass({
     listData: PropTypes.object,
 
     // rowPressed is passed the row that was pressed
-    rowPressed: PropTypes.function,
+    rowPressed: PropTypes.func,
 
     // a number of photos that still need to be uploaded
     photosToUpload: PropTypes.number,
 
     // what happens when you press the photosToUpload popup
-    uploadPhotosPressed: PropTypes.function,
+    uploadPhotosPressed: PropTypes.func,
 
     // Are there currently photos being uploaded?
-    photosCurrentlyUploading: PropTypes.boolean
+    photosCurrentlyUploading: PropTypes.bool
   },
 
   getInitialState () {
@@ -116,41 +119,45 @@ module.exports = React.createClass({
     const photosCurrentlyUploading = this.props.photosCurrentlyUploading && this.props.photosCurrentlyUploading.size > 0
     return (
       <View style={styles.container}>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-        />
-
-      { photosToUpload ?
-        <View style={styles.notice}>
-          { photosCurrentlyUploading ?
-            <View style={styles.innerNotice}>
-              <Text style={styles.noticeText}>
-                {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } to upload.
-              </Text>
-              <ActivityIndicatorIOS
-                style={styles.ActivityIndicatorIOS}
-                size='small'
-                color={colors.brand}
-              />
-            </View>
-          :
-            <View style={styles.innerNotice}>
-              <Text style={styles.noticeText}>
-                {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } did not upload.
-              </Text>
-              <Button onPress={this.props.uploadPhotosPressed}>
-                Retry
-              </Button>
-            </View>
-          }
-        </View>
-      :
-        null
-      }
-      <Button onPress={this.props.signIn}>
-        Sign In
-      </Button>
+        { this.props.listData.size > 0 ?
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow}
+          />
+        :
+          <Text style={styles.message}>Press + to create create a new location.</Text>
+        }
+        { photosToUpload ?
+          <View style={styles.notice}>
+            { photosCurrentlyUploading ?
+              <View style={styles.innerNotice}>
+                <Text style={styles.noticeText}>
+                  {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } to upload.
+                </Text>
+                <ActivityIndicatorIOS
+                  style={styles.ActivityIndicatorIOS}
+                  size='small'
+                  color={colors.brand}
+                />
+              </View>
+            :
+              <View style={styles.innerNotice}>
+                <Text style={styles.noticeText}>
+                  {this.props.photosToUpload.size} photo{ this.props.photosToUpload.size > 1 ? 's' : '' } did not upload.
+                </Text>
+                <Button onPress={this.props.uploadPhotosPressed}>
+                  Retry
+                </Button>
+              </View>
+            }
+          </View>
+        :
+          null
+        }
+        <Button onPress={this.props.signIn}>
+          Sign In
+        </Button>
+        <Text style={styles.message}>To access your saved locations.</Text>
       </View>
     )
   }

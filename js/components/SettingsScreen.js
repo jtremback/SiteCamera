@@ -24,8 +24,7 @@ module.exports = React.createClass({
   render () {
     return (
       <View style={styles.container}>
-        <Text>Wait for wifi connection to upload photos</Text>
-        <SwitchIOS />
+        <Button onPress={this.props.signOut}>Sign Out</Button>
       </View>
     )
   }

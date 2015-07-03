@@ -25,6 +25,9 @@ module.exports = new Nuclear.Store({
     this.on(event('get locations'), replaceLocations)
     this.on(event('add location'), addLocation)
     this.on(event('select current location'), selectLocation)
+    this.on(event('sign out of dropbox'), (state) => {
+      return state.set('locations', toImmutable({}))
+    })
   }
 })
 

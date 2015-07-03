@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 module.exports = React.createClass({
   displayName: 'AddLocationScreen',
   propTypes: {
-    addLocation: PropTypes.function
+    addLocation: PropTypes.func
   },
   addLocationPressed () {
     this.props.addLocation(this.state.input)

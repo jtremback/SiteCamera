@@ -11,7 +11,8 @@ const events = eventMap([
   'add location',
   'select current location',
   'get dropbox user profile',
-  'get dropbox access token'
+  'get dropbox access token',
+  'sign out of dropbox'
 ])
 
 function eventMap (array) {
@@ -23,6 +24,6 @@ function eventMap (array) {
 
 module.exports = function (eventName) {
   const event = events[eventName]
-  if (event === undefined) { throw new Error('event does not exist')}
+  if (event === undefined) { throw new Error(`event "${eventName}" does not exist`)}
   return event
 }

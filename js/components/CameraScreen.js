@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
 module.exports = React.createClass({
   displayName: 'CameraScreen',
   propTypes: {
-    tookPhoto: PropTypes.function,
+    tookPhoto: PropTypes.func,
     cameraType: PropTypes.string,
   },
 
@@ -121,6 +121,3 @@ module.exports = React.createClass({
     )
   },
 })
-            // <View style={styles.picCounter}>
-            //   <Text style={styles.picCounterText}>{jankyMinWidth(10)}</Text>
-            // </View>

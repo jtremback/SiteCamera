@@ -64,7 +64,7 @@ const LocationListScreenContainer = React.createClass({
   displayName: 'LocationListScreenContainer',
   propTypes: {
     navigator: PropTypes.object,
-    getNavigator: PropTypes.function
+    getNavigator: PropTypes.func
   },
   mixins: [flux.ReactMixin],
 
@@ -138,17 +138,13 @@ const SettingsScreenContainer = React.createClass({
   propTypes: {
     navigator: PropTypes.object,
   },
-  mixins: [flux.ReactMixin],
-  getDataBindings () {
-    return {
-      locations: getters.locations,
-      photosToUpload: getters.photosToUpload,
-      photosCurrentlyUploading: getters.photosCurrentlyUploading
-    }
-  },
 
   render () {
-    return <SettingsScreen />
+    return (
+      <SettingsScreen
+        signOut={actions.signOut}
+      />
+    )
   }
 })
 
@@ -156,6 +152,13 @@ const SettingsScreenContainer = React.createClass({
 
 module.exports = React.createClass({
   displayName: 'MainNavigator',
+  mixins: [flux.ReactMixin],
+
+  getDataBindings () {
+    return {
+      dropboxAccessToken: getters.dropboxAccessToken
+    }
+  },
 
   getNavigator (navigator) {
     this.navigator = navigator
@@ -184,8 +187,8 @@ module.exports = React.createClass({
         initialRoute={{
           title: 'Locations',
           component: LocationListScreenContainer,
-          // leftButtonTitle: 'Settings',
-          // onLeftButtonPress: this.onLeftButtonPress,
+          leftButtonTitle: 'Settings',
+          onLeftButtonPress: this.onLeftButtonPress,
           rightButtonIcon: require('image!NavBarButtonPlus'),
           onRightButtonPress: this.onRightButtonPress,
           passProps: {

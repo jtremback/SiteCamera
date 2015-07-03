@@ -12,7 +12,6 @@ const {
 } = React
 
 const qs = require('query-string')
-const Button = require('react-native-button')
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +27,11 @@ const styles = StyleSheet.create({
 
 module.exports = React.createClass({
   displayName: 'SettingsScreen',
-
+  propTypes: {
+    appKey: PropTypes.string,
+    redirectUrl: PropTypes.string,
+    onCredentials: PropTypes.func,
+  },
   getInitialState () {
     const secret = Math.random() + ''
     return {

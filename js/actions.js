@@ -4,7 +4,6 @@ const getters = require('./getters.js')
 const { toImmutable } = require('nuclear-js')
 const moment = require('moment')
 const RNFS = require('react-native-fs')
-const config = require('../config.js')
 const mixpanel = require('./modules/mixpanel/index.js')
 const event = require('./events.js')
 
@@ -70,13 +69,10 @@ function onCredentials (accessToken) {
   getLocations().catch(console.error)
 }
 
-// exports.dropboxOauth = dropboxOauth
-// async function dropboxOauth () {
-//   const accessToken = await dropbox.oauth(config.app_key, config.redirect_url)
-
-//   flux.dispatch(event('get dropbox access token'), accessToken)
-//   return accessToken
-// }
+exports.signOut = signOut
+function signOut () {
+  flux.dispatch(event('sign out of dropbox'))
+}
 
 exports.selectLocation = selectLocation
 function selectLocation (name) {
