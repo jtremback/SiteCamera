@@ -4,6 +4,7 @@ const {
   StyleSheet,
   View,
   TouchableHighlight,
+  TouchableOpacity,
   ListView,
   Text,
   ActivityIndicatorIOS,
@@ -31,12 +32,14 @@ const styles = StyleSheet.create({
     fontSize: 17
   },
 
+  textWrap: {
+    marginTop: 120,
+    alignItems: 'center'
+  },
   message: {
-    padding: 10,
     fontSize: 18,
     color: '#aaa',
     textAlign: 'center',
-    marginTop: 70,
   },
 
   notice: {
@@ -114,6 +117,9 @@ module.exports = React.createClass({
     )
   },
 
+  link () {
+    console.log('click')
+  },
   render () {
     const photosToUpload = this.props.photosToUpload && this.props.photosToUpload.size > 0
     const photosCurrentlyUploading = this.props.photosCurrentlyUploading && this.props.photosCurrentlyUploading.size > 0
@@ -125,7 +131,11 @@ module.exports = React.createClass({
             renderRow={this.renderRow}
           />
         :
-          <Text style={styles.message}>Press + to create create a new location.</Text>
+          <View style={styles.textWrap}>
+            <Text style={styles.message}>Press + to create a new location, or</Text>
+            <Button onPress={this.props.signIn}>Sign In</Button>
+            <Text style={styles.message}>to access your saved locations.</Text>
+          </View>
         }
         { photosToUpload ?
           <View style={styles.notice}>
@@ -154,10 +164,6 @@ module.exports = React.createClass({
         :
           null
         }
-        <Button onPress={this.props.signIn}>
-          Sign In
-        </Button>
-        <Text style={styles.message}>To access your saved locations.</Text>
       </View>
     )
   }

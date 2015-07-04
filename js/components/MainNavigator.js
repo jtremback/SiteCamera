@@ -138,11 +138,27 @@ const SettingsScreenContainer = React.createClass({
   propTypes: {
     navigator: PropTypes.object,
   },
+  mixins: [flux.ReactMixin],
+
+  getDataBindings () {
+    return {
+      dropboxAccessToken: getters.dropboxAccessToken
+    }
+  },
+
+  signIn () {
+    this.props.navigator.push({
+      title: 'Sign In',
+      component: DropboxOauthSignInScreenContainer,
+    });
+  },
 
   render () {
     return (
       <SettingsScreen
         signOut={actions.signOut}
+        signIn={this.signIn}
+        dropboxAccessToken={this.state.dropboxAccessToken}
       />
     )
   }
