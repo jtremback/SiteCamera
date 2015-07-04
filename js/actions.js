@@ -15,6 +15,16 @@ async function initApp () {
     flux.dispatch(event('new device id'), Number(String(Math.random()).slice(2)))
   }
 
+  if (flux.evaluate(getters.dropboxAccessToken)) {
+    getLocations().catch(console.error)
+    const profile = await getProfile()
+
+    mpPeople({ $set: {
+      $name: profile.display_name,
+      dropboxProfile: profile
+    }})
+  }
+
   mpEvents('startup', {
     'photos.toUpload': flux.evaluate(['photos', 'toUpload']).toList().toJS()
   })
@@ -30,28 +40,19 @@ function mpPeople (update) {
   mixpanel.people(flux.evaluate(getters.mixpanelConfig), update).catch(console.error)
 }
 
-exports.mpRegisterProfile = mpRegisterProfile
-function mpRegisterProfile (profile) {
-  mpPeople({ $set: {
-    $name: profile.display_name,
-    dropboxProfile: profile
-  }})
-  mpEvents('$create_alias', {
-    alias: profile.uid
-  })
-}
-
 exports.getLocations = getLocations
 async function getLocations () {
   const folders = await dropbox.getFolders(flux.evaluate(getters.dropboxAccessToken))
-  const locations = folders.reduce((acc, item) => {
-    const name = item.path.slice(1)
-    acc[name] = { name }
-    return acc
-  }, {})
+  if (folders) {
+    const locations = folders.reduce((acc, item) => {
+      const name = item.path.slice(1)
+      acc[name] = { name }
+      return acc
+    }, {})
 
-  flux.dispatch(event('get locations'), toImmutable(locations))
-  return locations
+    flux.dispatch(event('get locations'), toImmutable(locations))
+    return locations
+  }
 }
 
 exports.getProfile = getProfile
@@ -65,7 +66,15 @@ async function getProfile () {
 exports.onCredentials = onCredentials
 function onCredentials (accessToken) {
   flux.dispatch(event('get dropbox access token'), accessToken)
-  getProfile().then(mpRegisterProfile).catch(console.error)
+  getProfile().then((profile) => {
+    mpPeople({ $set: {
+      $name: profile.display_name,
+      dropboxProfile: profile
+    }})
+    mpEvents('$create_alias', {
+      alias: profile.uid
+    })
+  }).catch(console.error)
   getLocations().catch(console.error)
 }
 

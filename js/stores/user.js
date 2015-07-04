@@ -20,5 +20,8 @@ module.exports = new Nuclear.Store({
     this.on(event('sign out of dropbox'), (state) => {
       return state.set('dropboxProfile', null).set('dropboxAccessToken', null)
     })
+    this.on(event('initialize user.dropboxAccessToken'), (state, storedState) => {
+      return state.set('dropboxAccessToken', storedState)
+    })
   }
 })

@@ -1,8 +1,9 @@
 const events = eventMap([
-  'set config property',
-  'new device id',
   'initialize photos.toUpload',
   'initialize config.deviceId',
+  'initialize user.dropboxAccessToken',
+  'set config property',
+  'new device id',
   'took photo',
   'started photo upload',
   'successful photo upload',
@@ -12,7 +13,7 @@ const events = eventMap([
   'select current location',
   'get dropbox user profile',
   'get dropbox access token',
-  'sign out of dropbox'
+  'sign out of dropbox',
 ])
 
 function eventMap (array) {

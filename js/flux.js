@@ -22,20 +22,27 @@ async function initPersistence (keypath) {
   const identifier = keypath.join('.')
 
   let storedState = await AsyncStorage.getItem(identifier)
-  storedState = JSON.parse(storedState || '{}')
-  storedState = toImmutable(storedState)
 
-  flux.dispatch(`initialize ${identifier}`, storedState)
+  if (storedState) {
+    storedState = JSON.parse(storedState)
+    storedState = toImmutable(storedState)
+    flux.dispatch(`initialize ${identifier}`, storedState)
+  }
 
   flux.observe(keypath, (newState) => {
-    AsyncStorage.setItem(identifier, JSON.stringify(toJS(newState) || {}))
+    if (newState) {
+      AsyncStorage.setItem(identifier, JSON.stringify(toJS(newState)))
+    } else {
+      AsyncStorage.removeItem(identifier)
+    }
   })
 }
 
 function init () {
   return Promise.all([
     initPersistence(['photos', 'toUpload']),
-    initPersistence(['config', 'deviceId'])
+    initPersistence(['config', 'deviceId']),
+    initPersistence(['user', 'dropboxAccessToken'])
   ])
 }
 

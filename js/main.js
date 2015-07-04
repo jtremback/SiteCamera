@@ -12,7 +12,7 @@ module.exports = React.createClass({
   displayName: 'Frame',
 
   componentDidMount () {
-    // actions.initApp().catch(console.error)
+    actions.initApp().catch(console.error)
     // StatusBarIOS.setStyle('light-content', true)
   },
 
