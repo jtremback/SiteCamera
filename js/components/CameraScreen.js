@@ -93,11 +93,26 @@ module.exports = React.createClass({
   },
 
   takePicture () {
-    this.refs.cam.capture((err, path) => {
-      if (!err) {
-        this.props.tookPhoto(path)
-      }
-    })
+    const capture = location => {
+      this.refs.cam.capture({
+        metadata: { location }
+      }, (err, path) => {
+        if (!err) {
+          this.props.tookPhoto(path)
+        }
+      })
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      location => {
+        console.log(location)
+        capture(location)
+      },
+      () => {
+        capture(null)
+      },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+    )
   },
 
   render () {
