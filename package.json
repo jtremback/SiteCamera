@@ -15,11 +15,11 @@
     "node-uuid": "^1.4.3",
     "nuclear-js": "git://github.com/optimizely/nuclear-js.git",
     "query-string": "^2.2.0",
-    "react-native": "latest",
+    "react-native": "0.6.0",
     "react-native-button": "^1.2.0",
     "react-native-camera": "jtremback/react-native-camera",
     "react-native-fs": "latest",
-    "react-native-motion-manager": "0.0.5",
+    "react-native-motion-manager": "jtremback/react-native-motion-manager",
     "regenerator": "^0.8.30"
   },
   "devDependencies": {
