@@ -26,7 +26,7 @@
 		45BB74ED1B2F62F7004723B0 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB74EC1B2F62E6004723B0 /* libRCTCamera.a */; };
 		45BB74F41B2F6359004723B0 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB74F31B2F6324004723B0 /* libRNFS.a */; };
 		45BB75071B2F6920004723B0 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45BB75061B2F690C004723B0 /* libRCTLinking.a */; };
-		45D093091B548DF0000F4E04 /* libRNMotionManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D093061B548D62000F4E04 /* libRNMotionManager.a */; };
+		45D093741B54A782000F4E04 /* libRNMotionManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D093711B54A77A000F4E04 /* libRNMotionManager.a */; };
 		45D250371B32498300B8E080 /* index.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D250361B32498300B8E080 /* index.m */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 /* End PBXBuildFile section */
@@ -116,16 +116,16 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTLinking;
 		};
-		45D093051B548D62000F4E04 /* PBXContainerItemProxy */ = {
+		45D093701B54A77A000F4E04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 45D092F31B548D62000F4E04 /* RNMotionManager.xcodeproj */;
+			containerPortal = 45D0936B1B54A77A000F4E04 /* RNMotionManager.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BB9CC7ED1AE0A2EB008A1D08;
 			remoteInfo = RNMotionManager;
 		};
-		45D093071B548D62000F4E04 /* PBXContainerItemProxy */ = {
+		45D093721B54A77A000F4E04 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 45D092F31B548D62000F4E04 /* RNMotionManager.xcodeproj */;
+			containerPortal = 45D0936B1B54A77A000F4E04 /* RNMotionManager.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = BB9CC7F81AE0A2EB008A1D08;
 			remoteInfo = RNMotionManagerTests;
@@ -170,7 +170,7 @@
 		45BB74E71B2F62E6004723B0 /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "node_modules/react-native-camera/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		45BB74EE1B2F6323004723B0 /* RNFS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
 		45BB75011B2F690C004723B0 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		45D092F31B548D62000F4E04 /* RNMotionManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMotionManager.xcodeproj; path = "node_modules/react-native-motion-manager/RNMotionManager.xcodeproj"; sourceTree = "<group>"; };
+		45D0936B1B54A77A000F4E04 /* RNMotionManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNMotionManager.xcodeproj; path = "node_modules/react-native-motion-manager/RNMotionManager.xcodeproj"; sourceTree = "<group>"; };
 		45D250361B32498300B8E080 /* index.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = index.m; path = js/modules/metadata/index.m; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45D093091B548DF0000F4E04 /* libRNMotionManager.a in Frameworks */,
+				45D093741B54A782000F4E04 /* libRNMotionManager.a in Frameworks */,
 				45BB75071B2F6920004723B0 /* libRCTLinking.a in Frameworks */,
 				45BB74F41B2F6359004723B0 /* libRNFS.a in Frameworks */,
 				45BB74ED1B2F62F7004723B0 /* libRCTCamera.a in Frameworks */,
@@ -329,11 +329,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		45D092F41B548D62000F4E04 /* Products */ = {
+		45D0936C1B54A77A000F4E04 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45D093061B548D62000F4E04 /* libRNMotionManager.a */,
-				45D093081B548D62000F4E04 /* RNMotionManagerTests.xctest */,
+				45D093711B54A77A000F4E04 /* libRNMotionManager.a */,
+				45D093731B54A77A000F4E04 /* RNMotionManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -349,7 +349,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				45D092F31B548D62000F4E04 /* RNMotionManager.xcodeproj */,
+				45D0936B1B54A77A000F4E04 /* RNMotionManager.xcodeproj */,
 				45BB75011B2F690C004723B0 /* RCTLinking.xcodeproj */,
 				45BB74EE1B2F6323004723B0 /* RNFS.xcodeproj */,
 				45BB74E71B2F62E6004723B0 /* RCTCamera.xcodeproj */,
@@ -517,8 +517,8 @@
 					ProjectRef = 45BB74EE1B2F6323004723B0 /* RNFS.xcodeproj */;
 				},
 				{
-					ProductGroup = 45D092F41B548D62000F4E04 /* Products */;
-					ProjectRef = 45D092F31B548D62000F4E04 /* RNMotionManager.xcodeproj */;
+					ProductGroup = 45D0936C1B54A77A000F4E04 /* Products */;
+					ProjectRef = 45D0936B1B54A77A000F4E04 /* RNMotionManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -607,18 +607,18 @@
 			remoteRef = 45BB75051B2F690C004723B0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		45D093061B548D62000F4E04 /* libRNMotionManager.a */ = {
+		45D093711B54A77A000F4E04 /* libRNMotionManager.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNMotionManager.a;
-			remoteRef = 45D093051B548D62000F4E04 /* PBXContainerItemProxy */;
+			remoteRef = 45D093701B54A77A000F4E04 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		45D093081B548D62000F4E04 /* RNMotionManagerTests.xctest */ = {
+		45D093731B54A77A000F4E04 /* RNMotionManagerTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = RNMotionManagerTests.xctest;
-			remoteRef = 45D093071B548D62000F4E04 /* PBXContainerItemProxy */;
+			remoteRef = 45D093721B54A77A000F4E04 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
